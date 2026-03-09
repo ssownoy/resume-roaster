@@ -858,12 +858,6 @@
       const requestStatusText = document.getElementById("requestStatusText");
       const sampleBtn = document.getElementById("sampleBtn");
 
-      const SYSTEM_PROMPT =
-        "You are a brutally honest career coach. Roast this resume like a comedy roast — be funny but genuinely helpful. Point out 5 specific weaknesses with emojis, then give 5 concrete improvements. Be direct, a little savage, but end with encouragement.";
-
-      const MODEL_NAME = "claude-haiku-4-5-20251001";
-      const API_URL = "https://api.anthropic.com/v1/messages";
-
       function setLoading(isLoading) {
         roastBtn.disabled = isLoading;
         apiKeyInput.disabled = isLoading;
@@ -871,7 +865,7 @@
         if (isLoading) {
           roastBtn.innerHTML = '<span class="icon">🔥</span><span>Roasting…</span>';
           statusLabel.textContent = "Asking Claude to roast your resume...";
-          requestStatusText.textContent = "Streaming response from Anthropic.";
+          requestStatusText.textContent = "Waiting for response from /api/roast.";
           statusDot.style.display = "inline-block";
         } else {
           roastBtn.innerHTML = '<span class="icon">🔥</span><span>Roast My Resume</span>';
@@ -989,83 +983,43 @@
 
         setLoading(true);
         try {
-          const body = {
-            model: MODEL_NAME,
-            max_tokens: 800,
-            temperature: 0.8,
-            system: SYSTEM_PROMPT,
-            messages: [
-              {
-                role: "user",
-                content: [
-                  {
-                    type: "text",
-                    text:
-                      "Here is the resume to roast. Follow the instructions from the system prompt exactly:\n\n" +
-                      resumeText
-                  }
-                ]
-              }
-            ]
-          };
-
-          const response = await fetch(API_URL, {
+          const response = await fetch("/api/roast", {
             method: "POST",
             headers: {
-              "x-api-key": apiKey,
-              "anthropic-version": "2023-06-01",
               "content-type": "application/json"
             },
-            body: JSON.stringify(body)
+            body: JSON.stringify({
+              resumeText: resumeText,
+              apiKey: apiKey
+            })
           });
-
-          if (!response.ok) {
-            let detail = "";
-            try {
-              const errJson = await response.json();
-              if (errJson && errJson.error && errJson.error.message) {
-                detail = " — " + errJson.error.message;
-              }
-            } catch (_) {
-              // ignore JSON parsing errors
-            }
-
-            if (response.status === 401 || response.status === 403) {
-              throw new Error(
-                "Auth issue with your API key" +
-                  detail +
-                  ". Double-check the key and that it has access to " +
-                  MODEL_NAME +
-                  "."
-              );
-            } else if (response.status === 429) {
-              throw new Error(
-                "Anthropic rate limit hit" +
-                  detail +
-                  ". Wait a bit or reduce how often you roast."
-              );
-            } else {
-              throw new Error(
-                "API request failed with status " + response.status + detail + "."
-              );
-            }
-          }
 
           const data = await response.json();
 
+          if (!response.ok) {
+            const detail =
+              (data && (data.error || data.message)) ||
+              "";
+            throw new Error(
+              detail || "Roast API request failed with status " + response.status + "."
+            );
+          }
+
           let text = "";
-          if (Array.isArray(data.content)) {
-            text = data.content
-              .filter((c) => c && c.type === "text" && typeof c.text === "string")
-              .map((c) => c.text)
-              .join("\n\n");
-          } else if (data.content && typeof data.content === "string") {
-            text = data.content;
+
+          // Read response from data.content[0].text as requested
+          if (
+            data &&
+            Array.isArray(data.content) &&
+            data.content[0] &&
+            typeof data.content[0].text === "string"
+          ) {
+            text = data.content[0].text;
           }
 
           if (!text.trim()) {
             text =
-              "Claude responded, but I couldn’t find any text content in the reply. Check your console or API settings.";
+              "Claude responded, but I couldn’t find any text content in data.content[0].text. Check your /api/roast handler or API settings.";
           }
 
           setOutput(text);
@@ -1111,3 +1065,4 @@
   </script>
 </body>
 </html>
+
