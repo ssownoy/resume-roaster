@@ -1005,22 +1005,10 @@
             );
           }
 
-          let text = "";
-
-          // Read response from data.content[0].text as requested
-          if (
-            data &&
-            Array.isArray(data.content) &&
-            data.content[0] &&
-            typeof data.content[0].text === "string"
-          ) {
-            text = data.content[0].text;
-          }
-
-          if (!text.trim()) {
-            text =
-              "Claude responded, but I couldn’t find any text content in data.content[0].text. Check your /api/roast handler or API settings.";
-          }
+          const text =
+            (data && data.content && data.content[0] && (data.content[0].text || data.content[0].value)) ||
+            (data && (data.completion || (data.error && data.error.message))) ||
+            JSON.stringify(data);
 
           setOutput(text);
         } catch (err) {
