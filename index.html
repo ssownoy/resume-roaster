@@ -1004,28 +1004,6 @@
         </div>
       </header>
 
-      <!-- API key bar -->
-      <section class="api-bar" aria-label="API key configuration">
-        <div class="api-label">
-          API Key
-          <span class="api-label-pill">Client-side · Keep private</span>
-        </div>
-        <div class="api-input-wrap">
-          <input
-            id="apiKeyInput"
-            type="password"
-            autocomplete="off"
-            spellcheck="false"
-            placeholder="gsk_..."
-            aria-label="Groq API key"
-          />
-          <div class="api-help">
-            <span>Uses</span>
-            <span class="key">llama-3.3-70b (Groq)</span>
-          </div>
-        </div>
-      </section>
-
       <!-- Main panels -->
       <main class="main-grid">
         <!-- Input panel -->
@@ -1177,7 +1155,6 @@
 
   <script>
     (function () {
-      const apiKeyInput = document.getElementById("apiKeyInput");
       const resumeInput = document.getElementById("resumeInput");
       const roastBtn = document.getElementById("roastBtn");
       const outputBox = document.getElementById("outputBox");
@@ -1225,7 +1202,6 @@
 
       function setLoading(isLoading) {
         roastBtn.disabled = isLoading;
-        apiKeyInput.disabled = isLoading;
         downloadBtn.disabled = true;
 
         if (isLoading) {
@@ -1585,14 +1561,7 @@
       async function roastResume() {
         clearError();
 
-        const apiKey = apiKeyInput.value.trim();
         const resumeText = resumeInput.value.trim();
-
-        if (!apiKey) {
-          showError("Add your Groq API key first. They don’t roast for free.");
-          apiKeyInput.focus();
-          return;
-        }
 
         if (!resumeText) {
           showError("Paste your resume before asking for emotional damage.");
@@ -1622,8 +1591,7 @@
                 "\n\n" +
                 responseFormat +
                 "\nResume:\n" +
-                resumeText,
-              apiKey: apiKey
+                resumeText
             })
           });
 
@@ -1721,26 +1689,6 @@
           roastResume();
         }
       });
-
-      // Small UX touch: show last used key partially as dots on reload
-      try {
-        const stored = window.localStorage.getItem("resumeRoaster:anthropicKeyHint");
-        if (stored && !apiKeyInput.value) {
-          apiKeyInput.placeholder = stored;
-        }
-
-        apiKeyInput.addEventListener("change", () => {
-          const v = apiKeyInput.value.trim();
-          if (v.length >= 10) {
-            const prefix = v.slice(0, 6);
-            const suffix = v.slice(-4);
-            const hint = prefix + "•••••" + suffix;
-            window.localStorage.setItem("resumeRoaster:anthropicKeyHint", hint);
-          }
-        });
-      } catch (_) {
-        // localStorage might be blocked; ignore
-      }
 
       // Initialize defaults
       setActiveStyle(currentStyle);
