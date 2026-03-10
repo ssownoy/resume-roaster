@@ -43,6 +43,7 @@
     * { 
       box-sizing: border-box; 
     }
+    button { text-transform: none !important; }
 
     button, input, textarea, select, .btn, .roast-btn, .style-btn, .ghost-btn, .sample-hint, .job-apply, .copy-btn, .theme-toggle, .lang-btn {
       border-radius: 8px;
@@ -630,6 +631,9 @@
       white-space: pre-wrap;
       word-wrap: break-word;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .output-box.empty {
@@ -914,7 +918,7 @@
       align-items: center;
     }
 
-    .style-btn {
+    .style-btn { text-transform: none !important;
       padding: 0 16px;
       height: 40px;
       border-radius: 8px;
