@@ -2247,51 +2247,10 @@
       function downloadRoastPdf() {
         const text = String(lastRoastText || "").trim();
         if (!text) return;
-        const { jsPDF } = window.jspdf || window.jsPDF || {};
-        const doc = new jsPDF({ unit: "pt", format: "a4" });
-
-        const margin = 42;
-        const pageW = doc.internal.pageSize.getWidth();
-        const pageH = doc.internal.pageSize.getHeight();
-        let y = margin;
-
-        // Header
-        doc.setFillColor(15, 23, 42);
-        doc.roundedRect(margin, y, pageW - margin * 2, 64, 12, 12, "F");
-        doc.setTextColor(249, 250, 251);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(18);
-        doc.text(t("appName"), margin + 16, y + 26);
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(10);
-        const dt = new Date();
-        doc.text("Date: " + dt.toLocaleString(), margin + 16, y + 46);
-        doc.text(
-          t("stylePillA") + " " + (currentStyle.charAt(0).toUpperCase() + currentStyle.slice(1)),
-          margin + 220,
-          y + 46
-        );
-        if (typeof lastScore === "number") {
-          doc.text(t("scoreLabel") + ": " + lastScore + "/100", margin + 360, y + 46);
-        }
-
-        y += 84;
-        doc.setTextColor(17, 24, 39);
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(11);
-
-        const lines = doc.splitTextToSize(text, pageW - margin * 2);
-        const lineHeight = 15;
-        for (let i = 0; i < lines.length; i++) {
-          if (y + lineHeight > pageH - margin) {
-            doc.addPage();
-            y = margin;
-          }
-          doc.text(lines[i], margin, y);
-          y += lineHeight;
-        }
-
-        doc.save("resume-roaster-feedback.pdf");
+        const win = window.open("", "_blank");
+        win.document.write("<html><head><title>Resume Roast</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;color:#111;}h1{color:#ff4500;}pre{white-space:pre-wrap;font-size:15px;line-height:1.6;}@media print{button{display:none;}}</style></head><body><h1>Resume Roaster Result</h1><p>" + new Date().toLocaleString() + "</p><hr/><pre>" + text.replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</pre><br/><button onclick='window.print()'>Save as PDF</button></body></html>");
+        win.document.close();
+        win.focus();
       }
 
       async function roastResume() {
