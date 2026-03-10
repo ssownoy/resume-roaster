@@ -248,6 +248,15 @@
         background var(--transition-fast), transform var(--transition-fast);
     }
 
+    /* Premium motion */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
     .api-input-wrap input::placeholder {
       color: var(--text-soft);
     }
@@ -665,6 +674,278 @@
       text-decoration: underline;
     }
 
+    /* Style selector */
+    .style-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+      margin-top: 2px;
+    }
+
+    .style-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .style-btn {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.92);
+      color: rgba(249, 250, 251, 0.85);
+      font-size: 0.76rem;
+      cursor: pointer;
+      transition: transform var(--transition-fast), background var(--transition-fast),
+        border-color var(--transition-fast), box-shadow var(--transition-fast);
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .style-btn:hover {
+      transform: translateY(-0.5px);
+      border-color: rgba(255, 120, 79, 0.85);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .style-btn.active {
+      border-color: rgba(255, 120, 79, 0.95);
+      background: linear-gradient(135deg, rgba(255, 92, 51, 0.22), rgba(15, 23, 42, 0.95));
+      box-shadow: 0 0 0 1px rgba(255, 120, 79, 0.35);
+      color: var(--text);
+    }
+
+    .style-note {
+      font-size: 0.72rem;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    /* PDF upload */
+    .upload-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .ghost-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.92);
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      cursor: pointer;
+      transition: transform var(--transition-fast), background var(--transition-fast),
+        border-color var(--transition-fast), box-shadow var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .ghost-btn:hover:not(:disabled) {
+      transform: translateY(-0.5px);
+      background: rgba(30, 64, 175, 0.75);
+      border-color: rgba(248, 250, 252, 0.65);
+      color: #e5e7eb;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .ghost-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Score meter */
+    .score-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .meter {
+      flex: 1;
+      min-width: 180px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.14);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .meter > .fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #22c55e 0%, #fbbf24 55%, #ef4444 100%);
+      filter: saturate(1.1);
+      transform-origin: left center;
+      transition: width 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+
+    .score-pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.95);
+      color: rgba(249, 250, 251, 0.8);
+      font-size: 0.72rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .score-pill strong {
+      color: var(--accent-yellow);
+      font-weight: 700;
+    }
+
+    /* Roast loading sparks */
+    .spark-layer {
+      position: absolute;
+      inset: -30px;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 2;
+    }
+
+    .spark {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #ffe4c4 0%, #ff784f 45%, rgba(185, 28, 28, 0.2) 70%);
+      box-shadow: 0 0 16px rgba(255, 92, 51, 0.55);
+      opacity: 0.95;
+      transform: translate(-50%, -50%);
+      animation: spark-fly 520ms ease-out forwards;
+    }
+
+    @keyframes spark-fly {
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.95; }
+      100% { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
+    }
+
+    /* History drawer */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-med);
+      z-index: 1000;
+    }
+
+    .drawer-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: min(420px, 92vw);
+      background: linear-gradient(145deg, rgba(2, 6, 23, 0.98), rgba(15, 23, 42, 0.98));
+      border-left: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: -30px 0 80px rgba(0, 0, 0, 0.7);
+      transform: translateX(100%);
+      transition: transform var(--transition-med);
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      padding: 16px 14px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .drawer-title {
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .drawer-body {
+      padding: 12px 10px 14px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .history-item {
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: radial-gradient(circle at top left, rgba(255, 92, 51, 0.08), rgba(15, 23, 42, 0.96));
+      padding: 10px 10px 9px;
+      cursor: pointer;
+      transition: transform var(--transition-fast), border-color var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .history-item:hover {
+      transform: translateY(-0.5px);
+      border-color: rgba(255, 120, 79, 0.5);
+      background: radial-gradient(circle at top left, rgba(255, 92, 51, 0.14), rgba(15, 23, 42, 0.98));
+    }
+
+    .history-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: rgba(249, 250, 251, 0.82);
+      font-size: 0.76rem;
+    }
+
+    .history-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      color: var(--text-soft);
+      font-size: 0.72rem;
+      margin-top: 6px;
+      line-height: 1.35;
+    }
+
+    .history-tag {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(15, 23, 42, 0.95);
+      color: rgba(249, 250, 251, 0.75);
+    }
+
     @media (max-width: 640px) {
       body {
         padding: 14px 10px;
@@ -714,13 +995,17 @@
           </div>
           <div class="chip">
             <span class="chip-flame">🔥</span>
-            Haiku 4.5 &nbsp;<span style="opacity:0.8;">|</span>&nbsp; Dark mode native
+            Llama 3.3 70B (Groq) &nbsp;<span style="opacity:0.8;">|</span>&nbsp; Dark mode native
           </div>
+          <button type="button" class="copy-btn" id="historyBtn" title="Open roast history">
+            <span>🕐</span>
+            <span>History</span>
+          </button>
         </div>
       </header>
 
       <!-- API key bar -->
-      <section class="api-bar" aria-label="Anthropic API key configuration">
+      <section class="api-bar" aria-label="API key configuration">
         <div class="api-label">
           API Key
           <span class="api-label-pill">Client-side · Keep private</span>
@@ -731,12 +1016,12 @@
             type="password"
             autocomplete="off"
             spellcheck="false"
-            placeholder="anthropic_..."
-            aria-label="Anthropic API key"
+            placeholder="gsk_..."
+            aria-label="Groq API key"
           />
           <div class="api-help">
             <span>Uses</span>
-            <span class="key">claude-haiku-4-5-20251001</span>
+            <span class="key">llama-3.3-70b (Groq)</span>
           </div>
         </div>
       </section>
@@ -762,6 +1047,14 @@
           </div>
 
           <div class="textarea-wrap">
+            <div class="upload-row">
+              <input id="pdfInput" type="file" accept="application/pdf,.pdf" style="display:none;" />
+              <button type="button" class="ghost-btn" id="pdfBtn">
+                <span>📎</span>
+                <span>Upload PDF</span>
+              </button>
+              <span class="panel-subtitle" id="pdfStatus" style="opacity:0.85;"></span>
+            </div>
             <textarea
               id="resumeInput"
               placeholder="Paste your resume here. Titles, experience, education, projects — the whole thing.&#10;&#10;Tip: Remove phone/email if you're screen-sharing."
@@ -780,9 +1073,18 @@
 
           <div class="actions-row">
             <div class="left-actions">
+              <div class="style-group" role="group" aria-label="Feedback style">
+                <button type="button" class="style-btn active" data-style="brutal" id="styleBrutal">Brutal 🔥</button>
+                <button type="button" class="style-btn" data-style="balanced" id="styleBalanced">Balanced ⚖️</button>
+                <button type="button" class="style-btn" data-style="professional" id="styleProfessional">Professional 💼</button>
+              </div>
               <button type="button" class="roast-btn" id="roastBtn">
                 <span class="icon">🔥</span>
                 <span>Roast My Resume</span>
+              </button>
+              <button type="button" class="ghost-btn" id="downloadBtn" style="display:none;">
+                <span>📄</span>
+                <span>Download PDF</span>
               </button>
             </div>
             <div class="roast-meta">
@@ -814,6 +1116,16 @@
           </div>
 
           <div class="output-body">
+            <div class="score-wrap">
+              <div class="meter" aria-label="Resume score meter">
+                <div class="fill" id="scoreFill"></div>
+              </div>
+              <div class="score-pill" id="scorePill">
+                <span>Score</span>
+                <strong id="scoreValue">—</strong>
+                <span>/100</span>
+              </div>
+            </div>
             <div id="outputBox" class="output-box empty" aria-live="polite">
               <div class="output-placeholder">
                 Hit “Roast My Resume 🔥” to see Claude drag your bullet points, then rebuild your career arc.
@@ -844,6 +1156,25 @@
     </div>
   </div>
 
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="drawer" id="historyDrawer" aria-label="Roast history">
+    <div class="drawer-header">
+      <div class="drawer-title"><span>🕐</span><span>Roast History</span></div>
+      <button type="button" class="copy-btn" id="closeHistoryBtn">
+        <span>✕</span><span>Close</span>
+      </button>
+    </div>
+    <div class="drawer-body" id="historyList">
+      <div class="panel-subtitle" style="padding: 8px 6px;">
+        No history yet. Roast something and we’ll remember the pain.
+      </div>
+    </div>
+  </aside>
+
+  <!-- CDN libraries (no frameworks) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <script>
     (function () {
       const apiKeyInput = document.getElementById("apiKeyInput");
@@ -857,16 +1188,52 @@
       const statusDot = document.getElementById("statusDot");
       const requestStatusText = document.getElementById("requestStatusText");
       const sampleBtn = document.getElementById("sampleBtn");
+      const pdfBtn = document.getElementById("pdfBtn");
+      const pdfInput = document.getElementById("pdfInput");
+      const pdfStatus = document.getElementById("pdfStatus");
+      const downloadBtn = document.getElementById("downloadBtn");
+      const historyBtn = document.getElementById("historyBtn");
+      const drawerOverlay = document.getElementById("drawerOverlay");
+      const historyDrawer = document.getElementById("historyDrawer");
+      const closeHistoryBtn = document.getElementById("closeHistoryBtn");
+      const historyList = document.getElementById("historyList");
+      const scoreFill = document.getElementById("scoreFill");
+      const scoreValue = document.getElementById("scoreValue");
+      const scorePill = document.getElementById("scorePill");
+
+      const styleButtons = Array.from(document.querySelectorAll(".style-btn"));
+      const styleDescriptions = {
+        brutal: "Savage comedy roast. Very harsh, but helpful.",
+        balanced: "Honest but kind. Mentor vibe.",
+        professional: "Formal career coach. No jokes."
+      };
+
+      const stylePrompts = {
+        brutal:
+          "STYLE: Brutal. Roast like a comedy roast—very harsh, savage, and funny, but still genuinely helpful. No sugar-coating.",
+        balanced:
+          "STYLE: Balanced. Be honest but kind like a mentor. Focus on clarity and encouragement. Light humor only if it helps.",
+        professional:
+          "STYLE: Professional. Formal career coach tone. No jokes. Direct, structured, actionable."
+      };
+
+      let currentStyle = "brutal";
+      let lastRoastText = "";
+      let lastScore = null;
+
+      const HISTORY_KEY = "resumeRoaster:history:v1";
 
       function setLoading(isLoading) {
         roastBtn.disabled = isLoading;
         apiKeyInput.disabled = isLoading;
+        downloadBtn.disabled = true;
 
         if (isLoading) {
           roastBtn.innerHTML = '<span class="icon">🔥</span><span>Roasting…</span>';
           statusLabel.textContent = "Asking Claude to roast your resume...";
           requestStatusText.textContent = "Waiting for response from /api/roast.";
           statusDot.style.display = "inline-block";
+          startSparks();
         } else {
           roastBtn.innerHTML = '<span class="icon">🔥</span><span>Roast My Resume</span>';
           statusDot.style.display = "none";
@@ -899,6 +1266,31 @@
         pre.textContent = text;
         outputBox.appendChild(pre);
         copyBtn.disabled = !text.trim();
+      }
+
+      function setScore(score) {
+        if (typeof score !== "number" || Number.isNaN(score)) {
+          lastScore = null;
+          scoreValue.textContent = "—";
+          scoreFill.style.width = "0%";
+          return;
+        }
+        const clamped = Math.max(0, Math.min(100, Math.round(score)));
+        lastScore = clamped;
+        scoreValue.textContent = String(clamped);
+        // Trigger transition reliably
+        requestAnimationFrame(() => {
+          scoreFill.style.width = clamped + "%";
+        });
+      }
+
+      function parseScore(text) {
+        // Expect: "Score: 72/100" or "Score: 72"
+        const m = String(text || "").match(/score\s*[:\-]\s*(\d{1,3})(?:\s*\/\s*100)?/i);
+        if (!m) return null;
+        const n = Number(m[1]);
+        if (!Number.isFinite(n)) return null;
+        return Math.max(0, Math.min(100, n));
       }
 
       function getOutputText() {
@@ -963,6 +1355,233 @@
         resumeInput.setSelectionRange(sample.length, sample.length);
       }
 
+      function setActiveStyle(style) {
+        currentStyle = style;
+        styleButtons.forEach((b) => b.classList.toggle("active", b.dataset.style === style));
+        const note = styleDescriptions[style] || "";
+        scorePill.title = "Score from AI response";
+        statusLabel.textContent = note ? note : "Ready to roast when you are.";
+      }
+
+      function openHistory() {
+        drawerOverlay.classList.add("open");
+        historyDrawer.classList.add("open");
+        renderHistory();
+      }
+
+      function closeHistory() {
+        drawerOverlay.classList.remove("open");
+        historyDrawer.classList.remove("open");
+      }
+
+      function loadHistory() {
+        try {
+          const raw = window.localStorage.getItem(HISTORY_KEY);
+          const parsed = raw ? JSON.parse(raw) : [];
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (_) {
+          return [];
+        }
+      }
+
+      function saveHistory(items) {
+        try {
+          window.localStorage.setItem(HISTORY_KEY, JSON.stringify(items.slice(0, 5)));
+        } catch (_) {
+          // ignore
+        }
+      }
+
+      function pushHistory(entry) {
+        const items = loadHistory();
+        const next = [entry, ...items].slice(0, 5);
+        saveHistory(next);
+      }
+
+      function renderHistory() {
+        const items = loadHistory();
+        historyList.innerHTML = "";
+        if (!items.length) {
+          const empty = document.createElement("div");
+          empty.className = "panel-subtitle";
+          empty.style.padding = "8px 6px";
+          empty.textContent = "No history yet. Roast something and we’ll remember the pain.";
+          historyList.appendChild(empty);
+          return;
+        }
+
+        items.forEach((item) => {
+          const card = document.createElement("div");
+          card.className = "history-item";
+          card.tabIndex = 0;
+          card.setAttribute("role", "button");
+          card.setAttribute("aria-label", "Load roast from history");
+
+          const dt = new Date(item.date || Date.now());
+          const dateLabel = isNaN(dt.getTime()) ? String(item.date || "") : dt.toLocaleString();
+
+          const top = document.createElement("div");
+          top.className = "history-top";
+          top.innerHTML =
+            "<span>" +
+            dateLabel +
+            "</span>" +
+            "<span class='history-tag'>" +
+            (item.styleLabel || item.style || "style") +
+            "</span>";
+
+          const meta = document.createElement("div");
+          meta.className = "history-meta";
+          const snippet = item.resumeSnippet || "";
+          const score = typeof item.score === "number" ? item.score : null;
+          meta.innerHTML =
+            "<span class='history-tag'>Resume: " +
+            escapeHtml(snippet) +
+            "</span>" +
+            (score !== null ? "<span class='history-tag'>Score: " + score + "/100</span>" : "");
+
+          card.appendChild(top);
+          card.appendChild(meta);
+
+          const activate = () => {
+            closeHistory();
+            if (item.style) setActiveStyle(item.style);
+            if (typeof item.resumeText === "string") resumeInput.value = item.resumeText;
+            if (typeof item.roastText === "string") {
+              lastRoastText = item.roastText;
+              setOutput(item.roastText);
+              setScore(typeof item.score === "number" ? item.score : parseScore(item.roastText));
+              downloadBtn.style.display = "inline-flex";
+              downloadBtn.disabled = false;
+            }
+          };
+
+          card.addEventListener("click", activate);
+          card.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") activate();
+          });
+
+          historyList.appendChild(card);
+        });
+      }
+
+      function escapeHtml(s) {
+        return String(s || "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function startSparks() {
+        // Lightweight particle burst around roast button while loading
+        const layer = document.createElement("div");
+        layer.className = "spark-layer";
+        roastBtn.style.position = "relative";
+        roastBtn.appendChild(layer);
+
+        let t = 0;
+        const id = window.setInterval(() => {
+          t += 1;
+          for (let i = 0; i < 8; i++) {
+            const s = document.createElement("div");
+            s.className = "spark";
+            const rect = roastBtn.getBoundingClientRect();
+            const x = rect.width * (0.2 + Math.random() * 0.6);
+            const y = rect.height * (0.2 + Math.random() * 0.6);
+            const angle = Math.random() * Math.PI * 2;
+            const dist = 22 + Math.random() * 50;
+            const dx = Math.cos(angle) * dist + "px";
+            const dy = Math.sin(angle) * dist + "px";
+            s.style.left = x + "px";
+            s.style.top = y + "px";
+            s.style.setProperty("--dx", dx);
+            s.style.setProperty("--dy", dy);
+            layer.appendChild(s);
+            s.addEventListener("animationend", () => s.remove());
+          }
+
+          if (t > 8 || !roastBtn.disabled) {
+            window.clearInterval(id);
+            setTimeout(() => layer.remove(), 450);
+          }
+        }, 120);
+      }
+
+      async function extractTextFromPdf(file) {
+        if (!file) return "";
+        pdfStatus.textContent = "Extracting text…";
+        const bytes = await file.arrayBuffer();
+        // pdfjsLib is provided by the CDN script
+        if (window.pdfjsLib && window.pdfjsLib.GlobalWorkerOptions) {
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.js";
+        }
+        const pdf = await window.pdfjsLib.getDocument({ data: bytes }).promise;
+        const totalPages = pdf.numPages || 0;
+        let full = "";
+        for (let p = 1; p <= totalPages; p++) {
+          const page = await pdf.getPage(p);
+          const content = await page.getTextContent();
+          const strings = (content.items || []).map((it) => it.str).filter(Boolean);
+          full += strings.join(" ") + "\n\n";
+          pdfStatus.textContent = "Extracting… (" + p + "/" + totalPages + ")";
+        }
+        pdfStatus.textContent = "PDF imported.";
+        return full.trim();
+      }
+
+      function downloadRoastPdf() {
+        const text = String(lastRoastText || "").trim();
+        if (!text) return;
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: "pt", format: "a4" });
+
+        const margin = 42;
+        const pageW = doc.internal.pageSize.getWidth();
+        const pageH = doc.internal.pageSize.getHeight();
+        let y = margin;
+
+        // Header
+        doc.setFillColor(15, 23, 42);
+        doc.roundedRect(margin, y, pageW - margin * 2, 64, 12, 12, "F");
+        doc.setTextColor(249, 250, 251);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(18);
+        doc.text("Resume Roaster", margin + 16, y + 26);
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        const dt = new Date();
+        doc.text("Date: " + dt.toLocaleString(), margin + 16, y + 46);
+        doc.text(
+          "Style: " + (currentStyle.charAt(0).toUpperCase() + currentStyle.slice(1)),
+          margin + 220,
+          y + 46
+        );
+        if (typeof lastScore === "number") {
+          doc.text("Score: " + lastScore + "/100", margin + 360, y + 46);
+        }
+
+        y += 84;
+        doc.setTextColor(17, 24, 39);
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(11);
+
+        const lines = doc.splitTextToSize(text, pageW - margin * 2);
+        const lineHeight = 15;
+        for (let i = 0; i < lines.length; i++) {
+          if (y + lineHeight > pageH - margin) {
+            doc.addPage();
+            y = margin;
+          }
+          doc.text(lines[i], margin, y);
+          y += lineHeight;
+        }
+
+        doc.save("resume-roaster-feedback.pdf");
+      }
+
       async function roastResume() {
         clearError();
 
@@ -970,7 +1589,7 @@
         const resumeText = resumeInput.value.trim();
 
         if (!apiKey) {
-          showError("Add your Anthropic API key first. They don’t roast for free.");
+          showError("Add your Groq API key first. They don’t roast for free.");
           apiKeyInput.focus();
           return;
         }
@@ -983,13 +1602,27 @@
 
         setLoading(true);
         try {
+          // Ask the model to include a score we can parse.
+          const responseFormat =
+            "RESPONSE FORMAT (follow exactly):\n" +
+            "Score: <0-100>/100\n" +
+            "Roast:\n" +
+            "- 5 weaknesses with emojis\n" +
+            "- 5 concrete improvements\n" +
+            "End with encouragement.\n";
+
           const response = await fetch("/api/roast", {
             method: "POST",
             headers: {
               "content-type": "application/json"
             },
             body: JSON.stringify({
-              resumeText: resumeText,
+              resumeText:
+                stylePrompts[currentStyle] +
+                "\n\n" +
+                responseFormat +
+                "\nResume:\n" +
+                resumeText,
               apiKey: apiKey
             })
           });
@@ -1018,7 +1651,23 @@
             text = JSON.stringify(data);
           }
 
+          lastRoastText = text;
+          const score = parseScore(text);
+          setScore(score);
           setOutput(text);
+
+          downloadBtn.style.display = "inline-flex";
+          downloadBtn.disabled = false;
+
+          pushHistory({
+            date: new Date().toISOString(),
+            style: currentStyle,
+            styleLabel: currentStyle.charAt(0).toUpperCase() + currentStyle.slice(1),
+            resumeSnippet: resumeText.slice(0, 50).replace(/\s+/g, " ").trim(),
+            resumeText: resumeText,
+            roastText: text,
+            score: score
+          });
         } catch (err) {
           console.error(err);
           showError(err.message || "Something broke while roasting. Check the console.");
@@ -1031,6 +1680,41 @@
       roastBtn.addEventListener("click", roastResume);
       copyBtn.addEventListener("click", copyRoastToClipboard);
       sampleBtn.addEventListener("click", fillSampleResume);
+      downloadBtn.addEventListener("click", downloadRoastPdf);
+      historyBtn.addEventListener("click", openHistory);
+      closeHistoryBtn.addEventListener("click", closeHistory);
+      drawerOverlay.addEventListener("click", closeHistory);
+
+      styleButtons.forEach((btn) => {
+        btn.addEventListener("click", () => setActiveStyle(btn.dataset.style));
+      });
+
+      pdfBtn.addEventListener("click", () => pdfInput.click());
+      pdfInput.addEventListener("change", async (e) => {
+        clearError();
+        try {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          if (!/\.pdf$/i.test(file.name)) {
+            showError("Please choose a .pdf file.");
+            return;
+          }
+          const text = await extractTextFromPdf(file);
+          if (text) {
+            resumeInput.value = text;
+          } else {
+            showError("Couldn’t extract text from that PDF.");
+          }
+        } catch (err) {
+          console.error(err);
+          showError("PDF import failed. Try a text-based PDF (not scanned images).");
+        } finally {
+          pdfInput.value = "";
+          setTimeout(() => {
+            pdfStatus.textContent = "";
+          }, 2500);
+        }
+      });
 
       resumeInput.addEventListener("keydown", function (e) {
         if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "enter") {
@@ -1057,6 +1741,10 @@
       } catch (_) {
         // localStorage might be blocked; ignore
       }
+
+      // Initialize defaults
+      setActiveStyle(currentStyle);
+      setScore(null);
     })();
   </script>
 </body>
