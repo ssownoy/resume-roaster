@@ -1803,7 +1803,7 @@
         demoBtn: document.getElementById("uiDemoBtn"),
         styleGroup: document.getElementById("uiStyleGroup"),
         roastBtn: document.getElementById("uiRoastBtn"),
-        downloadBtn: document.getElementById("uiDownloadBtn"),
+        downloadBtn: document.getElementById("uiDownloadBtn") || null,
         weakFixPill: document.getElementById("uiWeakFixPill"),
         outputTitle: document.getElementById("uiOutputTitle"),
         outputSubtitle: document.getElementById("uiOutputSubtitle"),
@@ -1870,7 +1870,7 @@
         if (professionalBtn) professionalBtn.textContent = pack.styleProfessional;
 
         if (ui.roastBtn) ui.roastBtn.textContent = pack.roastBtn;
-        if (ui.downloadBtn) ui.downloadBtn.textContent = pack.downloadBtn;
+        if (ui.downloadBtn && ui.downloadBtn.textContent !== undefined) ui.downloadBtn.textContent = pack.downloadBtn;
         if (ui.weakFixPill) ui.weakFixPill.textContent = pack.weakFixPill;
         if (ui.outputTitle) ui.outputTitle.textContent = pack.outputTitle;
         if (ui.outputSubtitle) ui.outputSubtitle.textContent = pack.outputSubtitle;
