@@ -260,7 +260,6 @@
 
     .api-label {
       font-size: 0.72rem;
-      text-transform: uppercase;
       letter-spacing: 0.14em;
       color: var(--text-soft);
       white-space: nowrap;
@@ -478,14 +477,14 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      padding: 0 20px;
+      padding: 0 14px;
       border-radius: 8px;
       border: 1.5px solid var(--accent-strong);
       background: rgba(15, 23, 42, 0.98);
       color: #f9fafb;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 600;
-      height: 44px;
+      height: 36px;
       justify-content: center;
       transition: border-color var(--transition-fast), background var(--transition-fast),
         transform var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
@@ -528,11 +527,11 @@
       justify-content: center;
       gap: 7px;
       padding: 0 20px;
-      height: 48px;
+      height: 46px;
       border-radius: 8px;
       border: none;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       letter-spacing: -0.01em;
       color: #111827;
@@ -951,13 +950,13 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 0 20px;
-      height: 44px;
+      padding: 0 14px;
+      height: 36px;
       border-radius: 8px;
       border: 1.5px solid rgba(148, 163, 184, 0.6);
       background: rgba(15, 23, 42, 0.92);
       color: var(--text-muted);
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       transition: transform var(--transition-fast), background var(--transition-fast),
@@ -1841,7 +1840,8 @@
         }
       };
 
-      let currentLang = "en";
+      const browserLang = navigator.language.slice(0,2);
+      let currentLang = ["ru","es"].includes(browserLang) ? browserLang : "en";
       function getLangPack() {
         return i18n[currentLang] || i18n.en;
       }
