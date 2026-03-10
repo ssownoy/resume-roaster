@@ -1378,6 +1378,20 @@
     body:not([data-theme="light"]) .sample-hint {
       border-color: #333;
     }
+
+    /* FORCE NO CAPS */
+    button, .style-btn, .roast-btn, .ghost-btn, .copy-btn, .lang-btn {
+      text-transform: none !important;
+    }
+    /* Fix panel-pill to wrap nicely */
+    .panel-pill {
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    /* Fix best-pages pill */
+    .pages-pill {
+      white-space: nowrap;
+    }
   </style>
 </head>
 <body>
