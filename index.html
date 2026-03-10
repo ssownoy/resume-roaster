@@ -1903,7 +1903,7 @@
 
       function setLoading(isLoading) {
         roastBtn.disabled = isLoading;
-        downloadBtn.disabled = true;
+        if(downloadBtn) downloadBtn.disabled = true;
 
         if (isLoading) {
           roastBtn.innerHTML = '<span class="icon">🔥</span><span>' + t("roastingBtn") + "</span>";
@@ -2127,8 +2127,8 @@
               lastRoastText = item.roastText;
               setOutput(item.roastText);
               setScore(typeof item.score === "number" ? item.score : parseScore(item.roastText));
-              downloadBtn.style.display = "inline-flex";
-              downloadBtn.disabled = false;
+              if(downloadBtn) downloadBtn.style.display = "inline-flex";
+              if(downloadBtn) downloadBtn.disabled = false;
             }
           };
 
@@ -2310,8 +2310,8 @@
           setScore(score);
           setOutput(text);
 
-          downloadBtn.style.display = "inline-flex";
-          downloadBtn.disabled = false;
+          if(downloadBtn) downloadBtn.style.display = "inline-flex";
+          if(downloadBtn) downloadBtn.disabled = false;
 
           if (jobsSection) {
             jobsSection.style.display = "flex";
@@ -2455,7 +2455,7 @@
       roastBtn.addEventListener("click", roastResume);
       copyBtn.addEventListener("click", copyRoastToClipboard);
       sampleBtn.addEventListener("click", fillSampleResume);
-      downloadBtn.addEventListener("click", function() { const text = String(lastRoastText || "").trim(); if (!text) return; const win = window.open("", "_blank"); win.document.write("<html><head><title>Resume Roast</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;color:#111;}h1{color:#ff4500;}pre{white-space:pre-wrap;font-size:15px;line-height:1.6;}@media print{button{display:none;}}</style></head><body><h1>Resume Roaster Result</h1><p>" + new Date().toLocaleString() + "</p><hr/><pre>" + text.replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</pre><br/><button onclick='window.print()'>Save as PDF</button></body></html>"); win.document.close(); win.focus(); });
+      downloadBtn && downloadBtn.addEventListener("click", function() { const text = String(lastRoastText || "").trim(); if (!text) return; const win = window.open("", "_blank"); win.document.write("<html><head><title>Resume Roast</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;color:#111;}h1{color:#ff4500;}pre{white-space:pre-wrap;font-size:15px;line-height:1.6;}@media print{button{display:none;}}</style></head><body><h1>Resume Roaster Result</h1><p>" + new Date().toLocaleString() + "</p><hr/><pre>" + text.replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</pre><br/><button onclick='window.print()'>Save as PDF</button></body></html>"); win.document.close(); win.focus(); });
       historyBtn.addEventListener("click", openHistory);
       closeHistoryBtn.addEventListener("click", closeHistory);
       drawerOverlay.addEventListener("click", closeHistory);
