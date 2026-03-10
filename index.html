@@ -194,6 +194,45 @@
       font-size: 0.9rem;
     }
 
+    /* Language switcher */
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(10px);
+    }
+
+    .lang-btn {
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(249, 250, 251, 0.72);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+        transform var(--transition-fast), color var(--transition-fast);
+      user-select: none;
+    }
+
+    .lang-btn:hover {
+      transform: translateY(-0.5px);
+      color: rgba(249, 250, 251, 0.9);
+      border-color: rgba(255, 120, 79, 0.45);
+      background: rgba(255, 92, 51, 0.12);
+    }
+
+    .lang-btn.active {
+      color: var(--text);
+      border-color: rgba(255, 120, 79, 0.75);
+      background: rgba(255, 92, 51, 0.18);
+    }
+
     /* API key bar */
     .api-bar {
       margin-top: 4px;
@@ -980,26 +1019,33 @@
           <div class="logo-pill" aria-hidden="true">RR</div>
           <div class="title-text">
             <h1>
-              Resume Roaster
-              <span class="badge">Brutal Career Comedy</span>
+              <span id="uiAppName">Resume Roaster</span>
+              <span class="badge" id="uiBadge">Brutal Career Comedy</span>
             </h1>
-            <div class="title-sub">
+            <div class="title-sub" id="uiTagline">
               Paste your resume, sacrifice your ego, and get a savage but actually useful critique.
             </div>
           </div>
         </div>
         <div class="meta-chip-row">
+          <div class="lang-switch" id="langSwitch" aria-label="">
+            <button type="button" class="lang-btn active" data-lang="en" id="langEN">EN</button>
+            <span style="opacity:0.35;">|</span>
+            <button type="button" class="lang-btn" data-lang="ru" id="langRU">RU</button>
+            <span style="opacity:0.35;">|</span>
+            <button type="button" class="lang-btn" data-lang="es" id="langES">ES</button>
+          </div>
           <div class="chip">
             <span class="chip-dot"></span>
-            Live roast powered by Claude
+            <span id="uiPowered">Live roast powered by Claude</span>
           </div>
           <div class="chip">
             <span class="chip-flame">🔥</span>
-            Llama 3.3 70B (Groq) &nbsp;<span style="opacity:0.8;">|</span>&nbsp; Dark mode native
+            <span id="uiModelChip">Llama 3.3 70B (Groq) &nbsp;<span style="opacity:0.8;">|</span>&nbsp; Dark mode native</span>
           </div>
-          <button type="button" class="copy-btn" id="historyBtn" title="Open roast history">
+          <button type="button" class="copy-btn" id="historyBtn" title="">
             <span>🕐</span>
-            <span>History</span>
+            <span id="uiHistoryBtn">History</span>
           </button>
         </div>
       </header>
@@ -1012,15 +1058,13 @@
             <div>
               <div class="panel-title">
                 <span class="icon">📄</span>
-                Your Resume
+                <span id="uiResumeTitle">Your Resume</span>
               </div>
-              <div class="panel-subtitle">
-                Paste raw text from your resume (no PDFs needed).
-              </div>
+              <div class="panel-subtitle" id="uiResumeSubtitle">Paste raw text from your resume (no PDFs needed).</div>
             </div>
             <div class="panel-pill">
-              <span>Best with 1–3 pages •</span>
-              <strong>Keep it real</strong>
+              <span id="uiResumePillA">Best with 1–3 pages •</span>
+              <strong id="uiResumePillB">Keep it real</strong>
             </div>
           </div>
 
@@ -1029,7 +1073,7 @@
               <input id="pdfInput" type="file" accept="application/pdf,.pdf" style="display:none;" />
               <button type="button" class="ghost-btn" id="pdfBtn">
                 <span>📎</span>
-                <span>Upload PDF</span>
+                <span id="uiUploadPdf">Upload PDF</span>
               </button>
               <span class="panel-subtitle" id="pdfStatus" style="opacity:0.85;"></span>
             </div>
@@ -1040,37 +1084,37 @@
 
             <div class="textarea-helper-row">
               <div>
-                <span style="opacity:0.6;">It will:</span>
-                &nbsp;be funny, a little savage, and then actually help.
+                <span style="opacity:0.6;" id="uiHelperPrefix">It will:</span>
+                <span id="uiHelperRest">&nbsp;be funny, a little savage, and then actually help.</span>
               </div>
               <button type="button" class="sample-hint" id="sampleBtn">
-                <span>Fill with demo resume</span>
+                <span id="uiDemoBtn">Fill with demo resume</span>
               </button>
             </div>
           </div>
 
           <div class="actions-row">
             <div class="left-actions">
-              <div class="style-group" role="group" aria-label="Feedback style">
+              <div class="style-group" role="group" aria-label="Feedback style" id="uiStyleGroup">
                 <button type="button" class="style-btn active" data-style="brutal" id="styleBrutal">Brutal 🔥</button>
                 <button type="button" class="style-btn" data-style="balanced" id="styleBalanced">Balanced ⚖️</button>
                 <button type="button" class="style-btn" data-style="professional" id="styleProfessional">Professional 💼</button>
               </div>
               <button type="button" class="roast-btn" id="roastBtn">
                 <span class="icon">🔥</span>
-                <span>Roast My Resume</span>
+                <span id="uiRoastBtn">Roast My Resume</span>
               </button>
               <button type="button" class="ghost-btn" id="downloadBtn" style="display:none;">
                 <span>📄</span>
-                <span>Download PDF</span>
+                <span id="uiDownloadBtn">Download PDF</span>
               </button>
             </div>
             <div class="roast-meta">
               <div class="pill">
                 <span>⚙️</span>
-                <span>5 weak spots & 5 fixes</span>
+                <span id="uiWeakFixPill">5 weak spots & 5 fixes</span>
               </div>
-              <span id="statusLabel">Ready to roast when you are.</span>
+              <span id="statusLabel"></span>
             </div>
           </div>
         </section>
@@ -1081,15 +1125,13 @@
             <div>
               <div class="panel-title">
                 <span class="icon">🎤</span>
-                Roast & Feedback
+                <span id="uiOutputTitle">Roast & Feedback</span>
               </div>
-              <div class="panel-subtitle">
-                Brutally honest analysis with concrete improvements.
-              </div>
+              <div class="panel-subtitle" id="uiOutputSubtitle">Brutally honest analysis with concrete improvements.</div>
             </div>
             <div class="panel-pill">
-              <span>Style:</span>
-              <strong>Comedy roast, helpful</strong>
+              <span id="uiStylePillA">Style:</span>
+              <strong id="uiStylePillB">Comedy roast, helpful</strong>
             </div>
           </div>
 
@@ -1099,14 +1141,14 @@
                 <div class="fill" id="scoreFill"></div>
               </div>
               <div class="score-pill" id="scorePill">
-                <span>Score</span>
+                <span id="uiScoreLabel">Score</span>
                 <strong id="scoreValue">—</strong>
                 <span>/100</span>
               </div>
             </div>
             <div id="outputBox" class="output-box empty" aria-live="polite">
               <div class="output-placeholder">
-                Hit “Roast My Resume 🔥” to see Claude drag your bullet points, then rebuild your career arc.
+                <span id="uiOutputPlaceholder">Hit “Roast My Resume 🔥” to see Claude drag your bullet points, then rebuild your career arc.</span>
               </div>
             </div>
 
@@ -1114,7 +1156,7 @@
               <div id="errorContainer" style="display:none;"></div>
               <button type="button" class="copy-btn" id="copyBtn" disabled>
                 <span>📋</span>
-                <span id="copyBtnLabel">Copy roast</span>
+                <span id="copyBtnLabel"></span>
               </button>
             </div>
 
@@ -1128,8 +1170,8 @@
 
       <!-- Footer -->
       <footer class="footer">
-        <span>Built for honest feedback, not emotional support. Take notes, not offense.</span>
-        <span>Powered by Anthropic Claude · Client-side demo</span>
+        <span id="uiFooterLeft">Built for honest feedback, not emotional support. Take notes, not offense.</span>
+        <span id="uiFooterRight">Powered by Anthropic Claude · Client-side demo</span>
       </footer>
     </div>
   </div>
@@ -1137,14 +1179,14 @@
   <div class="drawer-overlay" id="drawerOverlay"></div>
   <aside class="drawer" id="historyDrawer" aria-label="Roast history">
     <div class="drawer-header">
-      <div class="drawer-title"><span>🕐</span><span>Roast History</span></div>
+      <div class="drawer-title"><span>🕐</span><span id="uiDrawerTitle">Roast History</span></div>
       <button type="button" class="copy-btn" id="closeHistoryBtn">
-        <span>✕</span><span>Close</span>
+        <span>✕</span><span id="uiClose">Close</span>
       </button>
     </div>
     <div class="drawer-body" id="historyList">
       <div class="panel-subtitle" style="padding: 8px 6px;">
-        No history yet. Roast something and we’ll remember the pain.
+        <span id="uiHistoryEmpty"></span>
       </div>
     </div>
   </aside>
@@ -1155,6 +1197,273 @@
 
   <script>
     (function () {
+      // --- i18n ---
+      const LANG_KEY = "resumeRoaster:lang:v1";
+      const i18n = {
+        en: {
+          appTitle: "Resume Roaster 🔥",
+          appName: "Resume Roaster",
+          badge: "Brutal Career Comedy",
+          tagline: "Paste your resume, sacrifice your ego, and get a savage but actually useful critique.",
+          powered: "Live roast powered by Claude",
+          modelChip: 'Llama 3.3 70B (Groq) \u00A0|\u00A0 Dark mode native',
+          history: "History",
+          historyOpenTitle: "Open roast history",
+          historyTitle: "Roast History",
+          close: "Close",
+          langAria: "Language",
+          meterAria: "Resume score meter",
+          drawerAria: "Roast history",
+          historyEmpty: "No history yet. Roast something and we’ll remember the pain.",
+          resumeTitle: "Your Resume",
+          resumeSubtitle: "Paste raw text from your resume (no PDFs needed).",
+          resumePillA: "Best with 1–3 pages •",
+          resumePillB: "Keep it real",
+          uploadPdf: "Upload PDF",
+          resumePlaceholder:
+            "Paste your resume here. Titles, experience, education, projects — the whole thing.\n\nTip: Remove phone/email if you're screen-sharing.",
+          helperPrefix: "It will:",
+          helperRest: " be funny, a little savage, and then actually help.",
+          demoBtn: "Fill with demo resume",
+          styleGroupAria: "Feedback style",
+          styleBrutal: "Brutal 🔥",
+          styleBalanced: "Balanced ⚖️",
+          styleProfessional: "Professional 💼",
+          roastBtn: "Roast My Resume",
+          roastingBtn: "Roasting…",
+          downloadBtn: "Download PDF",
+          weakFixPill: "5 weak spots & 5 fixes",
+          statusReady: "Ready to roast when you are.",
+          statusAsking: "Asking the AI to roast your resume...",
+          statusWaiting: "Waiting for response from /api/roast.",
+          statusComplete: "Roast complete. Reflect, then iterate.",
+          outputTitle: "Roast & Feedback",
+          outputSubtitle: "Brutally honest analysis with concrete improvements.",
+          stylePillA: "Style:",
+          stylePillB: "Comedy roast, helpful",
+          scoreLabel: "Score",
+          scoreTitle: "Score from AI response",
+          outputPlaceholder:
+            "Hit “Roast My Resume 🔥” to see your bullet points get roasted, then rebuild your career arc.",
+          copyRoast: "Copy roast",
+          copied: "Copied!",
+          copyFailed: "Copy failed",
+          footerLeft: "Built for honest feedback, not emotional support. Take notes, not offense.",
+          footerRight: "Powered by server-side roast engine",
+          // History item labels
+          historyResume: "Resume",
+          historyScore: "Score",
+          // PDF
+          pdfExtractingText: "Extracting text…",
+          pdfExtractingPage: "Extracting… ({p}/{total})",
+          pdfImported: "PDF imported.",
+          pdfChoosePdf: "Please choose a .pdf file.",
+          pdfCouldntExtract: "Couldn’t extract text from that PDF.",
+          pdfImportFailed: "PDF import failed. Try a text-based PDF (not scanned images).",
+          // Errors
+          errPasteResume: "Paste your resume before asking for emotional damage.",
+          // Style descriptions (shown in status line on selection)
+          styleDesc: {
+            brutal: "Savage comedy roast. Very harsh, but helpful.",
+            balanced: "Honest but kind. Mentor vibe.",
+            professional: "Formal career coach. No jokes."
+          },
+          // Prompt add-ons
+          stylePrompt: {
+            brutal:
+              "STYLE: Brutal. Roast like a comedy roast—very harsh, savage, and funny, but still genuinely helpful. No sugar-coating.",
+            balanced:
+              "STYLE: Balanced. Be honest but kind like a mentor. Focus on clarity and encouragement. Light humor only if it helps.",
+            professional:
+              "STYLE: Professional. Formal career coach tone. No jokes. Direct, structured, actionable."
+          },
+          responseFormat:
+            "RESPONSE FORMAT (follow exactly):\n" +
+            "Score: <0-100>/100\n" +
+            "Roast:\n" +
+            "- 5 weaknesses with emojis\n" +
+            "- 5 concrete improvements\n" +
+            "End with encouragement.\n"
+        },
+        ru: {
+          appTitle: "Resume Roaster 🔥",
+          appName: "Resume Roaster",
+          badge: "Жёсткий разбор резюме",
+          tagline: "Вставь резюме — и получи дерзкий, но реально полезный разбор.",
+          powered: "Разбор в реальном времени (Claude)",
+          modelChip: 'Llama 3.3 70B (Groq) \u00A0|\u00A0 Тёмная тема',
+          history: "История",
+          historyOpenTitle: "Открыть историю разборов",
+          historyTitle: "История разборов",
+          close: "Закрыть",
+          langAria: "Язык",
+          meterAria: "Шкала оценки резюме",
+          drawerAria: "История разборов",
+          historyEmpty: "Пока пусто. Сделай разбор — и мы запомним боль.",
+          resumeTitle: "Твоё резюме",
+          resumeSubtitle: "Вставь текст резюме (PDF не обязателен).",
+          resumePillA: "Лучше 1–3 страницы •",
+          resumePillB: "Без прикрас",
+          uploadPdf: "Загрузить PDF",
+          resumePlaceholder:
+            "Вставь сюда резюме: заголовки, опыт, образование, проекты — всё.\n\nСовет: убери телефон/почту, если демонстрируешь экран.",
+          helperPrefix: "Будет:",
+          helperRest: " смешно, чуть жестковато — и по делу.",
+          demoBtn: "Заполнить демо-резюме",
+          styleGroupAria: "Стиль обратной связи",
+          styleBrutal: "Жёстко 🔥",
+          styleBalanced: "Сбалансированно ⚖️",
+          styleProfessional: "Профессионально 💼",
+          roastBtn: "Разнести резюме",
+          roastingBtn: "Жарим…",
+          downloadBtn: "Скачать PDF",
+          weakFixPill: "5 слабых мест и 5 улучшений",
+          statusReady: "Готово, когда ты готов(а).",
+          statusAsking: "Отправляем резюме на разнос…",
+          statusWaiting: "Ждём ответ от /api/roast.",
+          statusComplete: "Готово. Сделай выводы и улучши версию.",
+          outputTitle: "Разбор и рекомендации",
+          outputSubtitle: "Честный разбор + конкретные улучшения.",
+          stylePillA: "Стиль:",
+          stylePillB: "комедийный разнос, но полезно",
+          scoreLabel: "Оценка",
+          scoreTitle: "Оценка из ответа ИИ",
+          outputPlaceholder:
+            "Нажми «Разнести резюме 🔥», чтобы получить разбор и план улучшений.",
+          copyRoast: "Скопировать",
+          copied: "Скопировано!",
+          copyFailed: "Не удалось скопировать",
+          footerLeft: "Для честной обратной связи, не для утешения. Записывай выводы, не обижайся.",
+          footerRight: "Серверный roast-движок",
+          historyResume: "Резюме",
+          historyScore: "Оценка",
+          pdfExtractingText: "Извлекаем текст…",
+          pdfExtractingPage: "Извлекаем… ({p}/{total})",
+          pdfImported: "PDF импортирован.",
+          pdfChoosePdf: "Пожалуйста, выбери файл .pdf.",
+          pdfCouldntExtract: "Не удалось извлечь текст из этого PDF.",
+          pdfImportFailed: "Импорт PDF не удался. Попробуй текстовый PDF (не скан).",
+          errPasteResume: "Вставь резюме, прежде чем просить морального ущерба.",
+          styleDesc: {
+            brutal: "Комедийно и жёстко. Очень сурово, но полезно.",
+            balanced: "Честно, но доброжелательно. Как наставник.",
+            professional: "Формально и по делу. Без шуток."
+          },
+          stylePrompt: {
+            brutal:
+              "STYLE: Brutal. (Ответ по-русски.) Разбирай как комедийный roast: максимально жёстко, дерзко и смешно, но полезно.",
+            balanced:
+              "STYLE: Balanced. (Ответ по-русски.) Честно, но мягко, как наставник. Больше структуры и практики.",
+            professional:
+              "STYLE: Professional. (Ответ по-русски.) Формальный тон карьерного консультанта. Без шуток. Структурировано."
+          },
+          responseFormat:
+            "ФОРМАТ ОТВЕТА (строго):\n" +
+            "Score: <0-100>/100\n" +
+            "Roast:\n" +
+            "- 5 слабых мест с эмодзи\n" +
+            "- 5 конкретных улучшений\n" +
+            "Закончить поддержкой.\n"
+        },
+        es: {
+          appTitle: "Resume Roaster 🔥",
+          appName: "Resume Roaster",
+          badge: "Crítica premium",
+          tagline: "Pega tu CV y recibe una crítica brutalmente honesta, pero útil.",
+          powered: "Crítica en vivo (Claude)",
+          modelChip: 'Llama 3.3 70B (Groq) \u00A0|\u00A0 Modo oscuro',
+          history: "Historial",
+          historyOpenTitle: "Abrir historial",
+          historyTitle: "Historial de roasts",
+          close: "Cerrar",
+          langAria: "Idioma",
+          meterAria: "Medidor de puntuación del CV",
+          drawerAria: "Historial",
+          historyEmpty: "Aún no hay historial. Haz un roast y lo guardamos.",
+          resumeTitle: "Tu CV",
+          resumeSubtitle: "Pega el texto de tu CV (no necesitas PDF).",
+          resumePillA: "Mejor con 1–3 páginas •",
+          resumePillB: "Sin filtros",
+          uploadPdf: "Subir PDF",
+          resumePlaceholder:
+            "Pega tu CV aquí: títulos, experiencia, educación, proyectos… todo.\n\nTip: quita teléfono/email si estás compartiendo pantalla.",
+          helperPrefix: "Será:",
+          helperRest: " gracioso, un poco salvaje, y luego realmente útil.",
+          demoBtn: "Rellenar con CV demo",
+          styleGroupAria: "Estilo de feedback",
+          styleBrutal: "Brutal 🔥",
+          styleBalanced: "Equilibrado ⚖️",
+          styleProfessional: "Profesional 💼",
+          roastBtn: "Roastear mi CV",
+          roastingBtn: "Roasteando…",
+          downloadBtn: "Descargar PDF",
+          weakFixPill: "5 fallos y 5 mejoras",
+          statusReady: "Listo cuando tú lo estés.",
+          statusAsking: "Pidiendo al AI que critique tu CV…",
+          statusWaiting: "Esperando respuesta de /api/roast.",
+          statusComplete: "Listo. Reflexiona y mejora la siguiente versión.",
+          outputTitle: "Roast y mejoras",
+          outputSubtitle: "Crítica honesta con mejoras concretas.",
+          stylePillA: "Estilo:",
+          stylePillB: "roast cómico, pero útil",
+          scoreLabel: "Puntuación",
+          scoreTitle: "Puntuación del AI",
+          outputPlaceholder:
+            "Pulsa “Roastear mi CV 🔥” para ver la crítica y un plan de mejoras.",
+          copyRoast: "Copiar roast",
+          copied: "¡Copiado!",
+          copyFailed: "Error al copiar",
+          footerLeft: "Hecho para feedback honesto, no para apoyo emocional. Toma notas, no te lo tomes personal.",
+          footerRight: "Motor de roast en servidor",
+          historyResume: "CV",
+          historyScore: "Puntuación",
+          pdfExtractingText: "Extrayendo texto…",
+          pdfExtractingPage: "Extrayendo… ({p}/{total})",
+          pdfImported: "PDF importado.",
+          pdfChoosePdf: "Elige un archivo .pdf.",
+          pdfCouldntExtract: "No se pudo extraer texto de ese PDF.",
+          pdfImportFailed: "Falló la importación. Prueba un PDF con texto (no escaneado).",
+          errPasteResume: "Pega tu CV antes de pedir daño emocional.",
+          styleDesc: {
+            brutal: "Roast cómico y duro. Muy agresivo, pero útil.",
+            balanced: "Honesto y amable. Estilo mentor.",
+            professional: "Formal y directo. Sin bromas."
+          },
+          stylePrompt: {
+            brutal:
+              "STYLE: Brutal. (Responde en español.) Roast cómico: duro, salvaje y divertido, pero útil.",
+            balanced:
+              "STYLE: Balanced. (Responde en español.) Honesto pero amable, como mentor. Enfócate en claridad y mejoras.",
+            professional:
+              "STYLE: Professional. (Responde en español.) Tono formal de coach de carrera. Sin bromas. Estructurado."
+          },
+          responseFormat:
+            "FORMATO DE RESPUESTA (exacto):\n" +
+            "Score: <0-100>/100\n" +
+            "Roast:\n" +
+            "- 5 debilidades con emojis\n" +
+            "- 5 mejoras concretas\n" +
+            "Termina con ánimo.\n"
+        }
+      };
+
+      let currentLang = "en";
+      function getLangPack() {
+        return i18n[currentLang] || i18n.en;
+      }
+      function t(key, vars) {
+        const pack = getLangPack();
+        let s = pack[key];
+        if (s == null) return String(key);
+        if (typeof s !== "string") return s;
+        if (vars) {
+          Object.keys(vars).forEach((k) => {
+            s = s.replaceAll("{" + k + "}", String(vars[k]));
+          });
+        }
+        return s;
+      }
+
       const resumeInput = document.getElementById("resumeInput");
       const roastBtn = document.getElementById("roastBtn");
       const outputBox = document.getElementById("outputBox");
@@ -1177,22 +1486,42 @@
       const scoreFill = document.getElementById("scoreFill");
       const scoreValue = document.getElementById("scoreValue");
       const scorePill = document.getElementById("scorePill");
+      const langSwitch = document.getElementById("langSwitch");
+
+      const langButtons = Array.from(document.querySelectorAll(".lang-btn"));
+      const ui = {
+        appName: document.getElementById("uiAppName"),
+        badge: document.getElementById("uiBadge"),
+        tagline: document.getElementById("uiTagline"),
+        powered: document.getElementById("uiPowered"),
+        modelChip: document.getElementById("uiModelChip"),
+        historyBtn: document.getElementById("uiHistoryBtn"),
+        resumeTitle: document.getElementById("uiResumeTitle"),
+        resumeSubtitle: document.getElementById("uiResumeSubtitle"),
+        resumePillA: document.getElementById("uiResumePillA"),
+        resumePillB: document.getElementById("uiResumePillB"),
+        uploadPdf: document.getElementById("uiUploadPdf"),
+        helperPrefix: document.getElementById("uiHelperPrefix"),
+        helperRest: document.getElementById("uiHelperRest"),
+        demoBtn: document.getElementById("uiDemoBtn"),
+        styleGroup: document.getElementById("uiStyleGroup"),
+        roastBtn: document.getElementById("uiRoastBtn"),
+        downloadBtn: document.getElementById("uiDownloadBtn"),
+        weakFixPill: document.getElementById("uiWeakFixPill"),
+        outputTitle: document.getElementById("uiOutputTitle"),
+        outputSubtitle: document.getElementById("uiOutputSubtitle"),
+        stylePillA: document.getElementById("uiStylePillA"),
+        stylePillB: document.getElementById("uiStylePillB"),
+        scoreLabel: document.getElementById("uiScoreLabel"),
+        outputPlaceholder: document.getElementById("uiOutputPlaceholder"),
+        footerLeft: document.getElementById("uiFooterLeft"),
+        footerRight: document.getElementById("uiFooterRight"),
+        drawerTitle: document.getElementById("uiDrawerTitle"),
+        close: document.getElementById("uiClose"),
+        historyEmpty: document.getElementById("uiHistoryEmpty")
+      };
 
       const styleButtons = Array.from(document.querySelectorAll(".style-btn"));
-      const styleDescriptions = {
-        brutal: "Savage comedy roast. Very harsh, but helpful.",
-        balanced: "Honest but kind. Mentor vibe.",
-        professional: "Formal career coach. No jokes."
-      };
-
-      const stylePrompts = {
-        brutal:
-          "STYLE: Brutal. Roast like a comedy roast—very harsh, savage, and funny, but still genuinely helpful. No sugar-coating.",
-        balanced:
-          "STYLE: Balanced. Be honest but kind like a mentor. Focus on clarity and encouragement. Light humor only if it helps.",
-        professional:
-          "STYLE: Professional. Formal career coach tone. No jokes. Direct, structured, actionable."
-      };
 
       let currentStyle = "brutal";
       let lastRoastText = "";
@@ -1200,24 +1529,93 @@
 
       const HISTORY_KEY = "resumeRoaster:history:v1";
 
+      function applyLanguage(lang) {
+        currentLang = lang;
+        try {
+          window.localStorage.setItem(LANG_KEY, currentLang);
+        } catch (_) {
+          // ignore
+        }
+
+        const pack = getLangPack();
+        document.title = pack.appTitle;
+
+        if (ui.appName) ui.appName.textContent = pack.appName;
+        if (ui.badge) ui.badge.textContent = pack.badge;
+        if (ui.tagline) ui.tagline.textContent = pack.tagline;
+        if (ui.powered) ui.powered.textContent = pack.powered;
+        if (ui.modelChip) ui.modelChip.innerHTML = pack.modelChip; // contains separator
+        if (ui.historyBtn) ui.historyBtn.textContent = pack.history;
+        if (historyBtn) historyBtn.title = pack.historyOpenTitle;
+        if (langSwitch) langSwitch.setAttribute("aria-label", pack.langAria);
+        if (historyDrawer) historyDrawer.setAttribute("aria-label", pack.drawerAria);
+        const meter = document.querySelector(".meter");
+        if (meter) meter.setAttribute("aria-label", pack.meterAria);
+        if (ui.resumeTitle) ui.resumeTitle.textContent = pack.resumeTitle;
+        if (ui.resumeSubtitle) ui.resumeSubtitle.textContent = pack.resumeSubtitle;
+        if (ui.resumePillA) ui.resumePillA.textContent = pack.resumePillA;
+        if (ui.resumePillB) ui.resumePillB.textContent = pack.resumePillB;
+        if (ui.uploadPdf) ui.uploadPdf.textContent = pack.uploadPdf;
+        if (resumeInput) resumeInput.placeholder = pack.resumePlaceholder;
+        if (ui.helperPrefix) ui.helperPrefix.textContent = pack.helperPrefix;
+        if (ui.helperRest) ui.helperRest.textContent = "\u00A0" + pack.helperRest;
+        if (ui.demoBtn) ui.demoBtn.textContent = pack.demoBtn;
+        if (ui.styleGroup) ui.styleGroup.setAttribute("aria-label", pack.styleGroupAria);
+
+        const brutalBtn = document.getElementById("styleBrutal");
+        const balancedBtn = document.getElementById("styleBalanced");
+        const professionalBtn = document.getElementById("styleProfessional");
+        if (brutalBtn) brutalBtn.textContent = pack.styleBrutal;
+        if (balancedBtn) balancedBtn.textContent = pack.styleBalanced;
+        if (professionalBtn) professionalBtn.textContent = pack.styleProfessional;
+
+        if (ui.roastBtn) ui.roastBtn.textContent = pack.roastBtn;
+        if (ui.downloadBtn) ui.downloadBtn.textContent = pack.downloadBtn;
+        if (ui.weakFixPill) ui.weakFixPill.textContent = pack.weakFixPill;
+        if (ui.outputTitle) ui.outputTitle.textContent = pack.outputTitle;
+        if (ui.outputSubtitle) ui.outputSubtitle.textContent = pack.outputSubtitle;
+        if (ui.stylePillA) ui.stylePillA.textContent = pack.stylePillA;
+        if (ui.stylePillB) ui.stylePillB.textContent = pack.stylePillB;
+        if (ui.scoreLabel) ui.scoreLabel.textContent = pack.scoreLabel;
+        if (scorePill) scorePill.title = pack.scoreTitle;
+        if (ui.outputPlaceholder) ui.outputPlaceholder.textContent = pack.outputPlaceholder;
+        if (copyBtnLabel) copyBtnLabel.textContent = pack.copyRoast;
+        if (ui.footerLeft) ui.footerLeft.textContent = pack.footerLeft;
+        if (ui.footerRight) ui.footerRight.textContent = pack.footerRight;
+        if (ui.drawerTitle) ui.drawerTitle.textContent = pack.historyTitle;
+        if (ui.close) ui.close.textContent = pack.close;
+        if (ui.historyEmpty) ui.historyEmpty.textContent = pack.historyEmpty;
+
+        // Keep selected style note translated
+        setActiveStyle(currentStyle);
+
+        // Update language button states
+        langButtons.forEach((b) => b.classList.toggle("active", b.dataset.lang === currentLang));
+
+        // If history drawer is open, rerender with translated labels
+        if (historyDrawer && historyDrawer.classList.contains("open")) {
+          renderHistory();
+        }
+      }
+
       function setLoading(isLoading) {
         roastBtn.disabled = isLoading;
         downloadBtn.disabled = true;
 
         if (isLoading) {
-          roastBtn.innerHTML = '<span class="icon">🔥</span><span>Roasting…</span>';
-          statusLabel.textContent = "Asking Claude to roast your resume...";
-          requestStatusText.textContent = "Waiting for response from /api/roast.";
+          roastBtn.innerHTML = '<span class="icon">🔥</span><span>' + t("roastingBtn") + "</span>";
+          statusLabel.textContent = t("statusAsking");
+          requestStatusText.textContent = t("statusWaiting");
           statusDot.style.display = "inline-block";
           startSparks();
         } else {
-          roastBtn.innerHTML = '<span class="icon">🔥</span><span>Roast My Resume</span>';
+          roastBtn.innerHTML = '<span class="icon">🔥</span><span>' + t("roastBtn") + "</span>";
           statusDot.style.display = "none";
           requestStatusText.textContent = "";
           if (!outputBox.classList.contains("empty")) {
-            statusLabel.textContent = "Roast complete. Reflect, then iterate.";
+            statusLabel.textContent = t("statusComplete");
           } else {
-            statusLabel.textContent = "Ready to roast when you are.";
+            statusLabel.textContent = t("statusReady");
           }
         }
       }
@@ -1262,7 +1660,7 @@
 
       function parseScore(text) {
         // Expect: "Score: 72/100" or "Score: 72"
-        const m = String(text || "").match(/score\s*[:\-]\s*(\d{1,3})(?:\s*\/\s*100)?/i);
+        const m = String(text || "").match(/(?:score|оценка|puntuaci[oó]n)\s*[:\-]\s*(\d{1,3})(?:\s*\/\s*100)?/i);
         if (!m) return null;
         const n = Number(m[1]);
         if (!Number.isFinite(n)) return null;
@@ -1280,15 +1678,15 @@
 
         try {
           await navigator.clipboard.writeText(text);
-          copyBtnLabel.textContent = "Copied!";
+          copyBtnLabel.textContent = t("copied");
           setTimeout(() => {
-            copyBtnLabel.textContent = "Copy roast";
+            copyBtnLabel.textContent = t("copyRoast");
           }, 1500);
         } catch (err) {
           console.error("Clipboard error:", err);
-          copyBtnLabel.textContent = "Copy failed";
+          copyBtnLabel.textContent = t("copyFailed");
           setTimeout(() => {
-            copyBtnLabel.textContent = "Copy roast";
+            copyBtnLabel.textContent = t("copyRoast");
           }, 2000);
         }
       }
@@ -1334,9 +1732,8 @@
       function setActiveStyle(style) {
         currentStyle = style;
         styleButtons.forEach((b) => b.classList.toggle("active", b.dataset.style === style));
-        const note = styleDescriptions[style] || "";
-        scorePill.title = "Score from AI response";
-        statusLabel.textContent = note ? note : "Ready to roast when you are.";
+        const desc = (getLangPack().styleDesc && getLangPack().styleDesc[style]) || "";
+        statusLabel.textContent = desc ? desc : t("statusReady");
       }
 
       function openHistory() {
@@ -1381,7 +1778,7 @@
           const empty = document.createElement("div");
           empty.className = "panel-subtitle";
           empty.style.padding = "8px 6px";
-          empty.textContent = "No history yet. Roast something and we’ll remember the pain.";
+          empty.textContent = t("historyEmpty");
           historyList.appendChild(empty);
           return;
         }
@@ -1411,10 +1808,10 @@
           const snippet = item.resumeSnippet || "";
           const score = typeof item.score === "number" ? item.score : null;
           meta.innerHTML =
-            "<span class='history-tag'>Resume: " +
+            "<span class='history-tag'>" + escapeHtml(t("historyResume")) + ": " +
             escapeHtml(snippet) +
             "</span>" +
-            (score !== null ? "<span class='history-tag'>Score: " + score + "/100</span>" : "");
+            (score !== null ? "<span class='history-tag'>" + escapeHtml(t("historyScore")) + ": " + score + "/100</span>" : "");
 
           card.appendChild(top);
           card.appendChild(meta);
@@ -1487,7 +1884,7 @@
 
       async function extractTextFromPdf(file) {
         if (!file) return "";
-        pdfStatus.textContent = "Extracting text…";
+        pdfStatus.textContent = t("pdfExtractingText");
         const bytes = await file.arrayBuffer();
         // pdfjsLib is provided by the CDN script
         if (window.pdfjsLib && window.pdfjsLib.GlobalWorkerOptions) {
@@ -1502,9 +1899,9 @@
           const content = await page.getTextContent();
           const strings = (content.items || []).map((it) => it.str).filter(Boolean);
           full += strings.join(" ") + "\n\n";
-          pdfStatus.textContent = "Extracting… (" + p + "/" + totalPages + ")";
+          pdfStatus.textContent = t("pdfExtractingPage", { p, total: totalPages });
         }
-        pdfStatus.textContent = "PDF imported.";
+        pdfStatus.textContent = t("pdfImported");
         return full.trim();
       }
 
@@ -1525,18 +1922,18 @@
         doc.setTextColor(249, 250, 251);
         doc.setFont("helvetica", "bold");
         doc.setFontSize(18);
-        doc.text("Resume Roaster", margin + 16, y + 26);
+        doc.text(t("appName"), margin + 16, y + 26);
         doc.setFont("helvetica", "normal");
         doc.setFontSize(10);
         const dt = new Date();
         doc.text("Date: " + dt.toLocaleString(), margin + 16, y + 46);
         doc.text(
-          "Style: " + (currentStyle.charAt(0).toUpperCase() + currentStyle.slice(1)),
+          t("stylePillA") + " " + (currentStyle.charAt(0).toUpperCase() + currentStyle.slice(1)),
           margin + 220,
           y + 46
         );
         if (typeof lastScore === "number") {
-          doc.text("Score: " + lastScore + "/100", margin + 360, y + 46);
+          doc.text(t("scoreLabel") + ": " + lastScore + "/100", margin + 360, y + 46);
         }
 
         y += 84;
@@ -1564,7 +1961,7 @@
         const resumeText = resumeInput.value.trim();
 
         if (!resumeText) {
-          showError("Paste your resume before asking for emotional damage.");
+          showError(t("errPasteResume"));
           resumeInput.focus();
           return;
         }
@@ -1572,13 +1969,7 @@
         setLoading(true);
         try {
           // Ask the model to include a score we can parse.
-          const responseFormat =
-            "RESPONSE FORMAT (follow exactly):\n" +
-            "Score: <0-100>/100\n" +
-            "Roast:\n" +
-            "- 5 weaknesses with emojis\n" +
-            "- 5 concrete improvements\n" +
-            "End with encouragement.\n";
+          const responseFormat = t("responseFormat");
 
           const response = await fetch("/api/roast", {
             method: "POST",
@@ -1587,7 +1978,7 @@
             },
             body: JSON.stringify({
               resumeText:
-                stylePrompts[currentStyle] +
+                (getLangPack().stylePrompt && getLangPack().stylePrompt[currentStyle]) +
                 "\n\n" +
                 responseFormat +
                 "\nResume:\n" +
@@ -1657,6 +2048,10 @@
         btn.addEventListener("click", () => setActiveStyle(btn.dataset.style));
       });
 
+      langButtons.forEach((btn) => {
+        btn.addEventListener("click", () => applyLanguage(btn.dataset.lang));
+      });
+
       pdfBtn.addEventListener("click", () => pdfInput.click());
       pdfInput.addEventListener("change", async (e) => {
         clearError();
@@ -1664,18 +2059,18 @@
           const file = e.target.files && e.target.files[0];
           if (!file) return;
           if (!/\.pdf$/i.test(file.name)) {
-            showError("Please choose a .pdf file.");
+            showError(t("pdfChoosePdf"));
             return;
           }
           const text = await extractTextFromPdf(file);
           if (text) {
             resumeInput.value = text;
           } else {
-            showError("Couldn’t extract text from that PDF.");
+            showError(t("pdfCouldntExtract"));
           }
         } catch (err) {
           console.error(err);
-          showError("PDF import failed. Try a text-based PDF (not scanned images).");
+          showError(t("pdfImportFailed"));
         } finally {
           pdfInput.value = "";
           setTimeout(() => {
@@ -1693,6 +2088,13 @@
       // Initialize defaults
       setActiveStyle(currentStyle);
       setScore(null);
+      try {
+        const storedLang = window.localStorage.getItem(LANG_KEY);
+        if (storedLang && i18n[storedLang]) currentLang = storedLang;
+      } catch (_) {
+        // ignore
+      }
+      applyLanguage(currentLang);
     })();
   </script>
 </body>
