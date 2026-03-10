@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Resume Roaster 🔥</title>
+  <title>Resume Roaster</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
@@ -10,6 +10,7 @@
       --bg-elevated: #11111a;
       --bg-elevated-soft: #151521;
       --border-subtle: #252538;
+      --border-color: #27273a;
       --accent: #ff5c33;
       --accent-soft: rgba(255, 92, 51, 0.18);
       --accent-strong: #ff784f;
@@ -39,8 +40,13 @@
         #020617;
     }
 
-    * {
-      box-sizing: border-box;
+    * { 
+      box-sizing: border-box; 
+    }
+
+    button, input, textarea, select, .btn, .roast-btn, .style-btn, .ghost-btn, .sample-hint, .job-apply, .copy-btn, .theme-toggle, .lang-btn {
+      border-radius: 8px;
+      border: 1.5px solid var(--border-color);
     }
 
     html,
@@ -153,8 +159,8 @@
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 3px 7px;
+      border-radius: 999px;
       border: 1px solid rgba(248, 250, 252, 0.1);
       background: linear-gradient(120deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.9));
       color: var(--accent-yellow);
@@ -179,7 +185,7 @@
       align-items: center;
       gap: 6px;
       padding: 4px 9px;
-      border-radius: 8px;
+      border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.14);
       font-size: 0.7rem;
       color: var(--text-muted);
@@ -191,7 +197,7 @@
     .chip-dot {
       width: 8px;
       height: 8px;
-      border-radius: 8px;
+      border-radius: 999px;
       background: radial-gradient(circle, #22c55e, #15803d);
       box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4);
     }
@@ -206,7 +212,7 @@
       align-items: center;
       gap: 6px;
       padding: 4px 6px;
-      border-radius: 8px;
+      border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.14);
       background: rgba(15, 23, 42, 0.72);
       backdrop-filter: blur(10px);
@@ -219,7 +225,7 @@
       font-size: 0.7rem;
       letter-spacing: 0.12em;
       padding: 4px 8px;
-      border-radius: 8px;
+      border-radius: 999px;
       cursor: pointer;
       transition: background var(--transition-fast), border-color var(--transition-fast),
         transform var(--transition-fast), color var(--transition-fast);
@@ -266,7 +272,7 @@
     .api-label-pill {
       font-size: 0.64rem;
       padding: 3px 6px;
-      border-radius: 8px;
+      border-radius: 999px;
       border: 1px solid rgba(248, 250, 252, 0.08);
       color: var(--accent-yellow);
       background: rgba(15, 23, 42, 0.8);
@@ -283,7 +289,7 @@
     .api-input-wrap input {
       width: 100%;
       padding: 8px 90px 8px 11px;
-      border-radius: 8px;
+      border-radius: 999px;
       border: 1px solid var(--input-border);
       background: radial-gradient(circle at top, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.95));
       color: var(--text);
@@ -316,9 +322,9 @@
     .api-help {
       position: absolute;
       right: 8px;
-      padding: 10px 20px;
+      padding: 3px 7px;
       font-size: 0.65rem;
-      border-radius: 8px;
+      border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.4);
       color: rgba(249, 250, 251, 0.8);
       background: rgba(15, 23, 42, 0.95);
@@ -404,7 +410,7 @@
     .panel-pill {
       font-size: 0.68rem;
       padding: 2px 9px;
-      border-radius: 8px;
+      border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.4);
       color: var(--text-muted);
       background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
@@ -459,7 +465,7 @@
 
     .textarea-helper-row {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       gap: 10px;
       font-size: 0.74rem;
@@ -470,22 +476,31 @@
     .sample-hint {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       cursor: pointer;
-      padding: 10px 20px;
+      padding: 0 20px;
       border-radius: 8px;
-      border: 2px solid #ff4500;
-      background: transparent; color: #ff4500; font-size: 15px; font-weight: 600;
+      border: 1.5px solid var(--accent-strong);
+      background: rgba(15, 23, 42, 0.98);
+      color: #f9fafb;
+      font-size: 15px;
+      font-weight: 600;
+      height: 44px;
+      justify-content: center;
       transition: border-color var(--transition-fast), background var(--transition-fast),
-        transform var(--transition-fast);
+        transform var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
     }
 
     .sample-hint:hover {
-      border-style: solid;
       border-color: var(--accent-strong);
-      background: rgba(30, 64, 175, 0.8);
-      transform: translateY(-0.5px);
+      background: rgba(30, 64, 175, 0.9);
+      transform: translateY(-1px);
       color: #e5e7eb;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
+    }
+
+    .sample-hint span.sample-icon {
+      font-size: 0.95rem;
     }
 
     /* Roast button row */
@@ -512,11 +527,12 @@
       align-items: center;
       justify-content: center;
       gap: 7px;
-      padding: 9px 16px;
-      border-radius: var(--radius-pill);
+      padding: 0 20px;
+      height: 44px;
+      border-radius: 8px;
       border: none;
       cursor: pointer;
-      font-size: 0.86rem;
+      font-size: 15px;
       font-weight: 600;
       letter-spacing: -0.01em;
       color: #111827;
@@ -567,8 +583,8 @@
     }
 
     .roast-meta .pill {
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 3px 7px;
+      border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.5);
       background: rgba(15, 23, 42, 0.95);
       color: var(--text-muted);
@@ -631,12 +647,14 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 5px 9px;
+      padding: 0 14px;
+      height: 44px;
       border-radius: 8px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
+      border: 1.5px solid rgba(148, 163, 184, 0.6);
       background: rgba(15, 23, 42, 0.96);
       color: var(--text-muted);
-      font-size: 0.72rem;
+      font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
       transition: background var(--transition-fast), border-color var(--transition-fast),
         transform var(--transition-fast), box-shadow var(--transition-fast);
@@ -667,7 +685,7 @@
       justify-content: center;
       width: 34px;
       height: 34px;
-      border-radius: 8px;
+      border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.6);
       background: rgba(15, 23, 42, 0.96);
       color: #fbbf24;
@@ -710,7 +728,7 @@
     .status-dot {
       width: 7px;
       height: 7px;
-      border-radius: 8px;
+      border-radius: 999px;
       background: var(--accent-yellow);
       box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.6);
     }
@@ -801,12 +819,13 @@
     }
 
     .job-apply {
-      padding: 5px 9px;
+      padding: 0 20px;
+      height: 44px;
       border-radius: 8px;
-      border: 1px solid rgba(248, 181, 90, 0.85);
+      border: 1.5px solid rgba(248, 181, 90, 0.85);
       background: radial-gradient(circle at top, #fed7aa, #f97316);
       color: #111827;
-      font-size: 0.76rem;
+      font-size: 15px;
       font-weight: 600;
       text-decoration: none;
       display: inline-flex;
@@ -826,7 +845,7 @@
       font-size: 0.74rem;
       color: #fecaca;
       background: rgba(127, 29, 29, 0.7);
-      border-radius: 8px;
+      border-radius: 999px;
       padding: 4px 9px;
       border: 1px solid rgba(252, 165, 165, 0.7);
       display: inline-flex;
@@ -881,12 +900,14 @@
     }
 
     .style-btn {
-      padding: 6px 10px;
+      padding: 0 20px;
+      height: 44px;
       border-radius: 8px;
-      border: 1px solid rgba(148, 163, 184, 0.55);
+      border: 1.5px solid rgba(148, 163, 184, 0.55);
       background: rgba(15, 23, 42, 0.92);
       color: rgba(249, 250, 251, 0.85);
-      font-size: 0.76rem;
+      font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
       transition: transform var(--transition-fast), background var(--transition-fast),
         border-color var(--transition-fast), box-shadow var(--transition-fast);
@@ -929,12 +950,14 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 10px;
+      padding: 0 20px;
+      height: 44px;
       border-radius: 8px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
+      border: 1.5px solid rgba(148, 163, 184, 0.6);
       background: rgba(15, 23, 42, 0.92);
       color: var(--text-muted);
-      font-size: 0.74rem;
+      font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
       transition: transform var(--transition-fast), background var(--transition-fast),
         border-color var(--transition-fast), box-shadow var(--transition-fast);
@@ -967,7 +990,7 @@
       flex: 1;
       min-width: 180px;
       height: 10px;
-      border-radius: 8px;
+      border-radius: 999px;
       background: rgba(148, 163, 184, 0.14);
       border: 1px solid rgba(148, 163, 184, 0.2);
       overflow: hidden;
@@ -985,8 +1008,8 @@
 
     .score-pill {
       padding: 4px 9px;
-      border-radius: 8px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
+      border-radius: 999px;
+      border: 1.5px solid rgba(148, 163, 184, 0.5);
       background: rgba(15, 23, 42, 0.95);
       color: rgba(249, 250, 251, 0.8);
       font-size: 0.72rem;
@@ -1014,7 +1037,7 @@
       position: absolute;
       width: 5px;
       height: 5px;
-      border-radius: 8px;
+      border-radius: 999px;
       background: radial-gradient(circle, #ffe4c4 0%, #ff784f 45%, rgba(185, 28, 28, 0.2) 70%);
       box-shadow: 0 0 16px rgba(255, 92, 51, 0.55);
       opacity: 0.95;
@@ -1127,7 +1150,7 @@
 
     .history-tag {
       padding: 2px 8px;
-      border-radius: 8px;
+      border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.22);
       background: rgba(15, 23, 42, 0.95);
       color: rgba(249, 250, 251, 0.75);
@@ -1190,11 +1213,11 @@
 
     body[data-theme="light"] .app-shell {
       box-shadow: 0 22px 60px rgba(15, 23, 42, 0.18);
-      border-color: rgba(148, 163, 184, 0.4);
+      border-color: rgba(148, 163, 184, 0.55);
     }
 
     body[data-theme="light"] .panel {
-      border-color: rgba(148, 163, 184, 0.45);
+      border-color: rgba(148, 163, 184, 0.55);
       box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
     }
 
@@ -1216,17 +1239,35 @@
     }
 
     body[data-theme="light"] .chip,
-    body[data-theme="light"] .lang-switch,
     body[data-theme="light"] .panel-pill,
+    body[data-theme="light"] .score-pill,
+    body[data-theme="light"] .history-item {
+      background: #ffffff;
+      border-color: rgba(148, 163, 184, 0.8);
+      color: #111827;
+    }
+
+    body[data-theme="light"] .lang-switch {
+      background: #ffffff;
+      border-color: #333333;
+      color: #111827;
+    }
+
+    [data-theme="light"] .lang-btn, [data-theme="light"] .lang-selector, [data-theme="light"] [data-lang] {
+      color: #111 !important;
+      border-color: #333 !important;
+      background: #fff !important;
+    }
+
+    [data-theme="light"] .pill, [data-theme="light"] .roast-meta { background: #f0f0f0 !important; color: #111 !important; }
+
     body[data-theme="light"] .ghost-btn,
     body[data-theme="light"] .copy-btn,
     body[data-theme="light"] .style-btn,
-    body[data-theme="light"] .score-pill,
-    body[data-theme="light"] .history-item,
     body[data-theme="light"] .drawer {
-      background: rgba(255, 255, 255, 0.9);
+      background: #ffffff;
       border-color: rgba(209, 213, 219, 0.9);
-      color: var(--text-muted);
+      color: #111827;
     }
 
     body[data-theme="light"] .score-pill strong {
@@ -1245,6 +1286,20 @@
     body[data-theme="light"] .job-card {
       background: radial-gradient(circle at top left, rgba(251, 191, 36, 0.18), #ffffff);
       border-color: rgba(248, 181, 90, 0.7);
+    }
+
+    body[data-theme="light"] .sample-hint {
+      background: #ffffff;
+      border-color: #333333;
+      color: #111827;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+    }
+
+    body[data-theme="light"] .sample-hint:hover {
+      background: #f9fafb;
+      border-color: #111827;
+      color: #020617;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.14);
     }
 
     body[data-theme="light"] .footer a {
@@ -1297,14 +1352,14 @@
             <span id="uiPowered">Live roast powered by Claude</span>
           </div>
           <div class="chip">
-            <span class="chip-flame">🔥</span>
+            <span class="chip-flame"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 0C6 0 4 3 4 5C4 6.5 5 7 6 7C7 7 8 6.5 8 5C8 3 6 0 6 0Z" fill="#ffb347"/><path d="M6 7C5 7 4 7.5 4 8.5C4 9.5 4.5 10 5.5 10C6 10 6.5 9.5 6.5 9C6.5 9.5 7 10 7.5 10C8.5 10 9 9.5 9 8.5C9 7.5 8 7 7 7C6.5 7 6 7 6 7Z" fill="#ff784f"/></svg></span>
             <span id="uiModelChip">Llama 3.3 70B (Groq) &nbsp;<span style="opacity:0.8;">|</span>&nbsp; Dark mode native</span>
           </div>
           <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme" title="Toggle light/dark theme">
             🌙
           </button>
           <button type="button" class="copy-btn" id="historyBtn" title="">
-            <span>🕐</span>
+                <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 4v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
             <span id="uiHistoryBtn">History</span>
           </button>
         </div>
@@ -1317,7 +1372,7 @@
           <div class="panel-header">
             <div>
               <div class="panel-title">
-                <span class="icon">📄</span>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 6h12M2 8h12M2 10h12" stroke="currentColor" stroke-width="1"/><path d="M5 2v2M11 2v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
                 <span id="uiResumeTitle">Your Resume</span>
               </div>
               <div class="panel-subtitle" id="uiResumeSubtitle">Paste raw text from your resume (no PDFs needed).</div>
@@ -1329,13 +1384,19 @@
           </div>
 
           <div class="textarea-wrap">
-            <div class="upload-row">
-              <input id="pdfInput" type="file" accept="application/pdf,.pdf" style="display:none;" />
-              <button type="button" class="ghost-btn" id="pdfBtn">
-                <span>📎</span>
-                <span id="uiUploadPdf">Upload PDF</span>
+            <div class="upload-row" style="justify-content: space-between; align-items: center;">
+              <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                <input id="pdfInput" type="file" accept="application/pdf,.pdf" style="display:none;" />
+                <button type="button" class="ghost-btn" id="pdfBtn">
+                  <span>📎</span>
+                  <span id="uiUploadPdf">Upload PDF</span>
+                </button>
+                <span class="panel-subtitle" id="pdfStatus" style="opacity:0.85;"></span>
+              </div>
+              <button type="button" class="sample-hint" id="sampleBtn">
+                <span class="sample-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 6h12M2 8h12M2 10h12" stroke="currentColor" stroke-width="1"/><path d="M5 2v2M11 2v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+                <span id="uiDemoBtn">Fill with demo resume</span>
               </button>
-              <span class="panel-subtitle" id="pdfStatus" style="opacity:0.85;"></span>
             </div>
             <textarea
               id="resumeInput"
@@ -1347,28 +1408,28 @@
                 <span style="opacity:0.6;" id="uiHelperPrefix">It will:</span>
                 <span id="uiHelperRest">&nbsp;be funny, a little savage, and then actually help.</span>
               </div>
-              <button type="button" class="sample-hint" id="sampleBtn">
-                <span id="uiDemoBtn">Fill with demo resume</span>
-              </button>
             </div>
           </div>
 
           <div class="actions-row">
             <div class="left-actions">
               <div class="style-group" role="group" aria-label="Feedback style" id="uiStyleGroup">
-                <button type="button" class="style-btn active" data-style="brutal" id="styleBrutal">Brutal 🔥</button>
-                <button type="button" class="style-btn" data-style="balanced" id="styleBalanced">Balanced ⚖️</button>
-                <button type="button" class="style-btn" data-style="professional" id="styleProfessional">Professional 💼</button>
+                <button type="button" class="style-btn active" data-style="brutal" id="styleBrutal">Brutal <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0C7 0 4.67 3.5 4.67 5.83C4.67 7.72 5.83 8.5 7 8.5C8.17 8.5 9.33 7.72 9.33 5.83C9.33 3.5 7 0 7 0Z" fill="#ffb347"/><path d="M7 8.5C5.83 8.5 4.67 9.28 4.67 10.83C4.67 12.39 5.44 13.17 6.61 13.17C7.39 13.17 8.17 12.39 8.17 11.61C8.17 12.39 8.94 13.17 10.11 13.17C11.28 13.17 12.06 12.39 12.06 10.83C12.06 9.28 10.89 8.5 9.72 8.5C8.94 8.5 8.17 8.5 7 8.5Z" fill="#ff784f"/></svg></button>
+                <button type="button" class="style-btn" data-style="balanced" id="styleBalanced">Balanced <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L9 5L13 5L10 8L11 12L7 9L3 12L4 8L1 5L5 5L7 1Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+                <button type="button" class="style-btn" data-style="professional" id="styleProfessional">Professional <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3" y="4" width="8" height="7" rx="0.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 4V2C5 1.5 5.5 1 6 1H8C8.5 1 9 1.5 9 2V4" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 11H10.5" stroke="currentColor" stroke-width="1.5"/></svg></button>
               </div>
               <button type="button" class="roast-btn" id="roastBtn">
-                <span class="icon">🔥</span>
-                <span id="uiRoastBtn">Roast My Resume</span>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 0C8 0 5.33 4 5.33 6.67C5.33 8.89 6.67 9.78 8 9.78C9.33 9.78 10.67 8.89 10.67 6.67C10.67 4 8 0 8 0Z" fill="#ffb347"/><path d="M8 9.78C6.67 9.78 5.33 10.67 5.33 12.44C5.33 14.22 6.22 15.11 7.56 15.11C8.44 15.11 9.33 14.22 9.33 13.33C9.33 14.22 10.22 15.11 11.11 15.11C12.44 15.11 13.33 14.22 13.33 12.44C13.33 10.67 12 9.78 10.67 9.78C9.78 9.78 8.89 9.78 8 9.78Z" fill="#ff784f"/></svg></span>
+                <span id="uiRoastBtn">ROAST MY RESUME</span>
               </button>
-
+              <button type="button" class="ghost-btn" id="downloadBtn" style="display:none;">
+                <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2 6h12M2 8h12M2 10h12" stroke="currentColor" stroke-width="1"/><path d="M5 2v2M11 2v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+                <span id="uiDownloadBtn">Download PDF</span>
+              </button>
             </div>
             <div class="roast-meta">
               <div class="pill">
-                <span>⚙️</span>
+                <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 4v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
                 <span id="uiWeakFixPill">5 weak spots & 5 fixes</span>
               </div>
               <span id="statusLabel"></span>
@@ -1381,7 +1442,7 @@
           <div class="panel-header">
             <div>
               <div class="panel-title">
-                <span class="icon">🎤</span>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><ellipse cx="8" cy="12" rx="4" ry="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="6" y="8" width="4" height="4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="6" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
                 <span id="uiOutputTitle">Roast & Feedback</span>
               </div>
               <div class="panel-subtitle" id="uiOutputSubtitle">Brutally honest analysis with concrete improvements.</div>
@@ -1428,7 +1489,7 @@
                 <div class="jobs-subtitle" id="jobsSubtitle">Based on your resume and key skills.</div>
               </div>
               <button type="button" class="ghost-btn jobs-btn" id="jobsBtn">
-                <span>🔍</span>
+                <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 8l2 2l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span id="jobsBtnLabel">Find Matching Jobs</span>
               </button>
               <div class="jobs-list" id="jobsList"></div>
@@ -1448,7 +1509,7 @@
   <div class="drawer-overlay" id="drawerOverlay"></div>
   <aside class="drawer" id="historyDrawer" aria-label="Roast history">
     <div class="drawer-header">
-      <div class="drawer-title"><span>🕐</span><span id="uiDrawerTitle">Roast History</span></div>
+      <div class="drawer-title"><span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 4v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span id="uiDrawerTitle">Roast History</span></div>
       <button type="button" class="copy-btn" id="closeHistoryBtn">
         <span>✕</span><span id="uiClose">Close</span>
       </button>
@@ -1461,7 +1522,6 @@
   </aside>
 
   <!-- CDN libraries (no frameworks) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
     (function () {
@@ -1477,61 +1537,67 @@
           modelChip: 'Llama 3.3 70B (Groq) \u00A0|\u00A0 Dark mode native',
           history: "History",
           historyOpenTitle: "Open roast history",
-          historyTitle: "Roast History",
-          close: "Close",
-          langAria: "Language",
-          meterAria: "Resume score meter",
-          drawerAria: "Roast history",
-          historyEmpty: "No history yet. Roast something and we’ll remember the pain.",
-          resumeTitle: "Your Resume",
-          resumeSubtitle: "Paste raw text from your resume (no PDFs needed).",
-          resumePillA: "Best with 1–3 pages •",
-          resumePillB: "Keep it real",
-          uploadPdf: "Upload PDF",
+          historyTitle: "ROAST HISTORY",
+          close: "CLOSE",
+          langAria: "LANGUAGE",
+          meterAria: "RESUME SCORE METER",
+          drawerAria: "ROAST HISTORY",
+          historyEmpty: "NO HISTORY YET. ROAST SOMETHING AND WE’LL REMEMBER PAIN.",
+          resumeTitle: "YOUR RESUME",
+          resumeSubtitle: "PASTE RAW TEXT FROM YOUR RESUME (NO PDFS NEEDED).",
+          resumePillA: "BEST WITH 1–3 PAGES •",
+          resumePillB: "KEEP IT REAL",
+          uploadPdf: "UPLOAD PDF",
           resumePlaceholder:
-            "Paste your resume here. Titles, experience, education, projects — the whole thing.\n\nTip: Remove phone/email if you're screen-sharing.",
-          helperPrefix: "It will:",
-          helperRest: " be funny, a little savage, and then actually help.",
-          demoBtn: "Fill with demo resume",
-          styleGroupAria: "Feedback style",
-          styleBrutal: "Brutal 🔥",
-          styleBalanced: "Balanced ⚖️",
-          styleProfessional: "Professional 💼",
-          roastBtn: "Roast My Resume",
-          roastingBtn: "Roasting…",
-          downloadBtn: "Download PDF",
-          weakFixPill: "5 weak spots & 5 fixes",
-          statusReady: "Ready to roast when you are.",
-          statusAsking: "Asking the AI to roast your resume...",
-          statusWaiting: "Waiting for response from /api/roast.",
-          statusComplete: "Roast complete. Reflect, then iterate.",
-          outputTitle: "Roast & Feedback",
-          outputSubtitle: "Brutally honest analysis with concrete improvements.",
-          stylePillA: "Style:",
-          stylePillB: "Comedy roast, helpful",
-          scoreLabel: "Score",
-          scoreTitle: "Score from AI response",
+            "PASTE YOUR RESUME HERE. TITLES, EXPERIENCE, EDUCATION, PROJECTS — WHOLE THING.\n\nTIP: REMOVE PHONE/EMAIL IF YOU'RE SCREEN-SHARING.",
+          helperPrefix: "IT WILL:",
+          helperRest: " BE FUNNY, A LITTLE SAVAGE, AND THEN ACTUALLY HELP.",
+          demoBtn: "FILL WITH DEMO RESUME",
+          styleGroupAria: "FEEDBACK STYLE",
+          styleBrutal: "BRUTAL 🔥",
+          styleBalanced: "BALANCED ⚖️",
+          styleProfessional: "PROFESSIONAL 💼",
+          roastBtn: "ROAST MY RESUME",
+          roastingBtn: "ROASTING…",
+          downloadBtn: "DOWNLOAD PDF",
+          weakFixPill: "5 WEAK SPOTS & 5 FIXES",
+          statusReady: "READY TO ROAST WHEN YOU ARE.",
+          statusAsking: "ASKING AI TO ROAST YOUR RESUME…",
+          statusWaiting: "WAITING FOR RESPONSE FROM /API/ROAST.",
+          statusComplete: "ROAST COMPLETE. REFLECT, THEN ITERATE.",
+          outputTitle: "ROAST & FEEDBACK",
+          outputSubtitle: "BRUTALLY HONEST ANALYSIS WITH CONCRETE IMPROVEMENTS.",
+          stylePillA: "STYLE:",
+          stylePillB: "COMEDY ROAST, HELPFUL",
+          scoreLabel: "SCORE",
+          scoreTitle: "SCORE FROM AI RESPONSE",
           outputPlaceholder:
-            "Hit “Roast My Resume 🔥” to see your bullet points get roasted, then rebuild your career arc.",
-          copyRoast: "Copy roast",
-          copied: "Copied!",
-          copyFailed: "Copy failed",
-          footerLeft: "Built for honest feedback, not emotional support. Take notes, not offense.",
-          footerRight: "Powered by server-side roast engine",
+            "HIT “ROAST MY RESUME 🔥” TO SEE YOUR BULLET POINTS GET ROASTED, THEN REBUILD YOUR CAREER ARC.",
+          copyRoast: "COPY ROAST",
+          copied: "COPIED!",
+          copyFailed: "COPY FAILED",
+          footerLeft: "BUILT FOR HONEST FEEDBACK, NOT EMOTIONAL SUPPORT. TAKE NOTES, NOT OFFENSE.",
+          footerRight: "POWERED BY SERVER-SIDE ROAST ENGINE",
           // History item labels
-          historyResume: "Resume",
-          historyScore: "Score",
+          historyResume: "RESUME",
+          historyScore: "SCORE",
           // PDF
-          pdfExtractingText: "Extracting text…",
-          pdfExtractingPage: "Extracting… ({p}/{total})",
-          pdfImported: "PDF imported.",
-          pdfChoosePdf: "Please choose a .pdf file.",
-          pdfCouldntExtract: "Couldn’t extract text from that PDF.",
-          pdfImportFailed: "PDF import failed. Try a text-based PDF (not scanned images).",
+          pdfExtractingText: "EXTRACTING TEXT…",
+          pdfExtractingPage: "EXTRACTING… ({p}/{total})",
+          pdfImported: "PDF IMPORTED.",
+          pdfChoosePdf: "PLEASE CHOOSE A .PDF FILE.",
+          pdfCouldntExtract: "COULDN'T EXTRACT TEXT FROM THAT PDF.",
+          pdfImportFailed: "PDF IMPORT FAILED. TRY A TEXT-BASED PDF (NOT SCANNED IMAGES).",
           // Errors
-          errPasteResume: "Paste your resume before asking for emotional damage.",
+          errPasteResume: "PASTE YOUR RESUME BEFORE ASKING FOR EMOTIONAL DAMAGE.",
           // Jobs
-          jobsTitle: "Matching Jobs",
+          jobsTitle: "MATCHING JOBS",
+          jobsSubtitle: "BASED ON YOUR RESUME AND KEY SKILLS.",
+          jobsButton: "FIND MATCHING JOBS",
+          jobsFinding: "FINDING MATCHING JOBS…",
+          jobsEmpty: "NO MATCHING JOBS FOUND. TRY TWEAKING YOUR RESUME FOCUS.",
+          jobsApply: "APPLY",
+          jobsHint: "OPENS A JOB SEARCH IN A NEW TAB.",
           jobsSubtitle: "Based on your resume and key skills.",
           jobsButton: "Find Matching Jobs",
           jobsFinding: "Finding matching jobs…",
@@ -1584,7 +1650,7 @@
           resumePlaceholder:
             "Вставь сюда резюме: заголовки, опыт, образование, проекты — всё.\n\nСовет: убери телефон/почту, если демонстрируешь экран.",
           helperPrefix: "Будет:",
-          helperRest: " смешно, чуть жестковато — и по делу.",
+          helperRest: " Смешно, чуть жестковато — и по делу.",
           demoBtn: "Заполнить демо-резюме",
           styleGroupAria: "Стиль обратной связи",
           styleBrutal: "Жёстко 🔥",
@@ -1601,7 +1667,7 @@
           outputTitle: "Разбор и рекомендации",
           outputSubtitle: "Честный разбор + конкретные улучшения.",
           stylePillA: "Стиль:",
-          stylePillB: "комедийный разнос, но полезно",
+          stylePillB: "Комедийный разнос, но полезно",
           scoreLabel: "Оценка",
           scoreTitle: "Оценка из ответа ИИ",
           outputPlaceholder:
@@ -1672,7 +1738,7 @@
           resumePlaceholder:
             "Pega tu CV aquí: títulos, experiencia, educación, proyectos… todo.\n\nTip: quita teléfono/email si estás compartiendo pantalla.",
           helperPrefix: "Será:",
-          helperRest: " gracioso, un poco salvaje, y luego realmente útil.",
+          helperRest: " Gracioso, un poco salvaje, y luego realmente útil.",
           demoBtn: "Rellenar con CV demo",
           styleGroupAria: "Estilo de feedback",
           styleBrutal: "Brutal 🔥",
@@ -1689,11 +1755,11 @@
           outputTitle: "Roast y mejoras",
           outputSubtitle: "Crítica honesta con mejoras concretas.",
           stylePillA: "Estilo:",
-          stylePillB: "roast cómico, pero útil",
+          stylePillB: "Roast cómico, pero útil",
           scoreLabel: "Puntuación",
           scoreTitle: "Puntuación del AI",
           outputPlaceholder:
-            "Pulsa “Roastear mi CV 🔥” para ver la crítica y un plan de mejoras.",
+            "Pulsa \"Roastear mi CV 🔥\" para ver la crítica y un plan de mejoras.",
           copyRoast: "Copiar roast",
           copied: "¡Copiado!",
           copyFailed: "Error al copiar",
@@ -1769,7 +1835,7 @@
       const pdfBtn = document.getElementById("pdfBtn");
       const pdfInput = document.getElementById("pdfInput");
       const pdfStatus = document.getElementById("pdfStatus");
-      const downloadBtn = {style:{display:"none"}, addEventListener:function(){}, disabled:false};
+      const downloadBtn = document.getElementById("downloadBtn");
       const historyBtn = document.getElementById("historyBtn");
       const drawerOverlay = document.getElementById("drawerOverlay");
       const historyDrawer = document.getElementById("historyDrawer");
@@ -1803,7 +1869,7 @@
         demoBtn: document.getElementById("uiDemoBtn"),
         styleGroup: document.getElementById("uiStyleGroup"),
         roastBtn: document.getElementById("uiRoastBtn"),
-        downloadBtn: document.getElementById("uiDownloadBtn") || null,
+        downloadBtn: document.getElementById("uiDownloadBtn"),
         weakFixPill: document.getElementById("uiWeakFixPill"),
         outputTitle: document.getElementById("uiOutputTitle"),
         outputSubtitle: document.getElementById("uiOutputSubtitle"),
@@ -1870,7 +1936,7 @@
         if (professionalBtn) professionalBtn.textContent = pack.styleProfessional;
 
         if (ui.roastBtn) ui.roastBtn.textContent = pack.roastBtn;
-        if (ui.downloadBtn && ui.downloadBtn.textContent !== undefined) ui.downloadBtn.textContent = pack.downloadBtn;
+        if (ui.downloadBtn) ui.downloadBtn.textContent = pack.downloadBtn;
         if (ui.weakFixPill) ui.weakFixPill.textContent = pack.weakFixPill;
         if (ui.outputTitle) ui.outputTitle.textContent = pack.outputTitle;
         if (ui.outputSubtitle) ui.outputSubtitle.textContent = pack.outputSubtitle;
@@ -1903,7 +1969,7 @@
 
       function setLoading(isLoading) {
         roastBtn.disabled = isLoading;
-        if(downloadBtn) downloadBtn.disabled = true;
+        downloadBtn.disabled = true;
 
         if (isLoading) {
           roastBtn.innerHTML = '<span class="icon">🔥</span><span>' + t("roastingBtn") + "</span>";
@@ -2127,8 +2193,8 @@
               lastRoastText = item.roastText;
               setOutput(item.roastText);
               setScore(typeof item.score === "number" ? item.score : parseScore(item.roastText));
-              if(downloadBtn) downloadBtn.style.display = "inline-flex";
-              if(downloadBtn) downloadBtn.disabled = false;
+              downloadBtn.style.display = "inline-flex";
+              downloadBtn.disabled = false;
             }
           };
 
@@ -2219,33 +2285,35 @@
       }
 
       async function extractTextFromPdf(file) {
-        if (!file) return "";
-        pdfStatus.textContent = t("pdfExtractingText");
-        const bytes = await file.arrayBuffer();
-        // pdfjsLib is provided by the CDN script
-        if (window.pdfjsLib && window.pdfjsLib.GlobalWorkerOptions) {
-          window.pdfjsLib.GlobalWorkerOptions.workerSrc =
-            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-        }
-        const pdf = await window.pdfjsLib.getDocument({ data: bytes }).promise;
-        const totalPages = pdf.numPages || 0;
-        let full = "";
-        for (let p = 1; p <= totalPages; p++) {
-          const page = await pdf.getPage(p);
-          const content = await page.getTextContent();
-          const strings = (content.items || []).map((it) => it.str).filter(Boolean);
-          full += strings.join(" ") + "\n\n";
-          pdfStatus.textContent = t("pdfExtractingPage", { p, total: totalPages });
-        }
-        pdfStatus.textContent = t("pdfImported");
-        return full.trim();
+        // PDF extraction disabled - pdf.js removed
+        return "";
       }
 
       function downloadRoastPdf() {
         const text = String(lastRoastText || "").trim();
         if (!text) return;
-        const win = window.open("", "_blank");
-        win.document.write("<html><head><title>Resume Roast</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;color:#111;}h1{color:#ff4500;}pre{white-space:pre-wrap;font-size:15px;line-height:1.6;}@media print{button{display:none;}}</style></head><body><h1>Resume Roaster Result</h1><p>" + new Date().toLocaleString() + "</p><hr/><pre>" + text.replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</pre><br/><button onclick='window.print()'>Save as PDF</button></body></html>");
+        const win = window.open('', '_blank');
+        win.document.write(`
+          <html>
+          <head>
+            <title>Resume Roast Result</title>
+            <style>
+              body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; color: #111; }
+              h1 { color: #ff4500; font-size: 24px; }
+              pre { white-space: pre-wrap; font-size: 15px; line-height: 1.6; }
+              @media print { button { display: none; } }
+            </style>
+          </head>
+          <body>
+            <h1>Resume Roaster Result</h1>
+            <p>Date: ${new Date().toLocaleString()}</p>
+            <hr/>
+            <pre>${text}</pre>
+            <br/>
+            <button onclick="window.print()">Save as PDF</button>
+          </body>
+          </html>
+        `);
         win.document.close();
         win.focus();
       }
@@ -2310,8 +2378,8 @@
           setScore(score);
           setOutput(text);
 
-          if(downloadBtn) downloadBtn.style.display = "inline-flex";
-          if(downloadBtn) downloadBtn.disabled = false;
+          downloadBtn.style.display = "inline-flex";
+          downloadBtn.disabled = false;
 
           if (jobsSection) {
             jobsSection.style.display = "flex";
@@ -2363,20 +2431,23 @@
 
           const data = await response.json();
           if (!response.ok) {
-            const detail = (data && (data.error || data.message)) || "";
-            throw new Error(detail || "Jobs API request failed with status " + response.status + ".");
+            console.error("Jobs API error", {
+              status: response.status,
+              body: data
+            });
+            showError("Job search unavailable right now 🔍");
+          } else {
+            const jobs = Array.isArray(data)
+              ? data
+              : Array.isArray(data.jobs)
+                ? data.jobs
+                : [];
+
+            renderJobs(jobs);
           }
-
-          const jobs = Array.isArray(data)
-            ? data
-            : Array.isArray(data.jobs)
-              ? data.jobs
-              : [];
-
-          renderJobs(jobs);
         } catch (err) {
-          console.error(err);
-          showError(t("jobsError") || "Job search failed. Try again.");
+          console.error("Jobs API request failed", err);
+          showError("Job search unavailable right now 🔍");
         } finally {
           jobsBtn.disabled = false;
           if (jobsBtnLabel) {
@@ -2432,9 +2503,22 @@
 
           const apply = document.createElement("a");
           apply.className = "job-apply";
-          apply.href = (currentLang === "ru"
+
+          const rawUrl = typeof job.applyUrl === "string" ? job.applyUrl : "";
+          const hasHttp = /^https?:\/\//i.test(rawUrl);
+          const safeTitle = String(job.title || "software engineer").trim();
+          const titleParam = safeTitle ? safeTitle.replace(/\s+/g, "+") : "software+engineer";
+
+          const jobUrl = currentLang === "ru" 
             ? "https://hh.ru/search/vacancy?text=" + encodeURIComponent(job.title || "разработчик")
-            : "https://www.indeed.com/jobs?q=" + encodeURIComponent(job.title || "developer"));
+            : "https://www.indeed.com/jobs?q=" + encodeURIComponent(job.title || "developer");
+
+          let targetUrl = rawUrl;
+          if (!hasHttp) {
+            targetUrl = jobUrl;
+          }
+
+          apply.href = targetUrl;
           apply.target = "_blank";
           apply.rel = "noreferrer";
           apply.textContent = t("jobsApply") || "Apply";
@@ -2447,6 +2531,15 @@
           card.appendChild(desc);
           card.appendChild(actions);
 
+          card.style.cursor = "pointer";
+          card.addEventListener("click", () => {
+            window.open(targetUrl, "_blank");
+          });
+          apply.addEventListener("click", (e) => {
+            e.stopPropagation();
+            window.open(targetUrl, "_blank");
+          });
+
           jobsList.appendChild(card);
         });
       }
@@ -2455,7 +2548,7 @@
       roastBtn.addEventListener("click", roastResume);
       copyBtn.addEventListener("click", copyRoastToClipboard);
       sampleBtn.addEventListener("click", fillSampleResume);
-      downloadBtn && downloadBtn.addEventListener("click", function() { const text = String(lastRoastText || "").trim(); if (!text) return; const win = window.open("", "_blank"); win.document.write("<html><head><title>Resume Roast</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;color:#111;}h1{color:#ff4500;}pre{white-space:pre-wrap;font-size:15px;line-height:1.6;}@media print{button{display:none;}}</style></head><body><h1>Resume Roaster Result</h1><p>" + new Date().toLocaleString() + "</p><hr/><pre>" + text.replace(/</g,"&lt;").replace(/>/g,"&gt;") + "</pre><br/><button onclick='window.print()'>Save as PDF</button></body></html>"); win.document.close(); win.focus(); });
+      downloadBtn.addEventListener("click", downloadRoastPdf);
       historyBtn.addEventListener("click", openHistory);
       closeHistoryBtn.addEventListener("click", closeHistory);
       drawerOverlay.addEventListener("click", closeHistory);
