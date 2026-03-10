@@ -29,6 +29,14 @@
         "Inter", "Segoe UI", sans-serif;
       --transition-fast: 150ms ease-out;
       --transition-med: 220ms cubic-bezier(0.22, 0.61, 0.36, 1);
+
+      /* Themed backgrounds (overridden in light mode) */
+      --body-background: radial-gradient(circle at top left, #1f2937 0, #050509 50%);
+      --app-shell-background: linear-gradient(145deg, #070712 0, #050509 45%, #11111d 100%);
+      --panel-background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.92), #020617 55%);
+      --output-background:
+        radial-gradient(circle at top left, rgba(31, 41, 55, 0.85), rgba(15, 23, 42, 0.98)),
+        #020617;
     }
 
     * {
@@ -40,10 +48,11 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background: radial-gradient(circle at top left, #1f2937 0, #050509 50%);
+      background: var(--body-background);
       color: var(--text);
       font-family: var(--font-sans);
       -webkit-font-smoothing: antialiased;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     body {
@@ -57,7 +66,7 @@
       width: 100%;
       max-width: 1120px;
       margin: auto;
-      background: linear-gradient(145deg, #070712 0, #050509 45%, #11111d 100%);
+      background: var(--app-shell-background);
       border-radius: 28px;
       border: 1px solid rgba(148, 163, 184, 0.08);
       box-shadow: var(--shadow-soft);
@@ -102,28 +111,25 @@
       min-width: 0;
     }
 
-    .logo-pill {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      background: radial-gradient(circle at 30% 0%, #ffe4c4, #ff5c33 40%, #b91c1c 100%);
-      box-shadow: var(--shadow-glow);
+    .logo-icon {
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #111827;
-      font-weight: 800;
-      font-size: 20px;
-      letter-spacing: -0.08em;
       transform-origin: center;
-      transition: transform var(--transition-med), box-shadow var(--transition-med),
-        filter var(--transition-med);
+      transition: transform var(--transition-med), filter var(--transition-med);
     }
 
-    .app-shell:hover .logo-pill {
-      transform: translateY(-1px) rotate(-3deg) scale(1.02);
+    .logo-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .app-shell:hover .logo-icon {
+      transform: translateY(-1px) scale(1.04);
       filter: saturate(1.1);
-      box-shadow: 0 0 0 1px rgba(255, 148, 112, 0.3), var(--shadow-glow);
     }
 
     .title-text {
@@ -346,7 +352,7 @@
     /* Panels */
     .panel {
       border-radius: 20px;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.92), #020617 55%);
+      background: var(--panel-background);
       border: 1px solid rgba(31, 41, 55, 0.9);
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
       padding: 14px 14px 12px;
@@ -586,9 +592,7 @@
       min-height: 180px;
       border-radius: var(--radius-md);
       padding: 11px 12px 10px;
-      background:
-        radial-gradient(circle at top left, rgba(31, 41, 55, 0.85), rgba(15, 23, 42, 0.98)),
-        #020617;
+      background: var(--output-background);
       border: 1px solid rgba(31, 41, 55, 0.9);
       color: var(--text);
       font-size: 0.82rem;
@@ -656,6 +660,43 @@
       cursor: not-allowed;
     }
 
+    /* Theme toggle button */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.96);
+      color: #fbbf24;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+        transform var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-0.5px);
+      border-color: rgba(255, 120, 79, 0.85);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+      background: rgba(30, 64, 175, 0.9);
+      color: #fef3c7;
+    }
+
+    .theme-toggle[data-theme="light"] {
+      background: #fefce8;
+      color: #ea580c;
+      border-color: rgba(248, 181, 90, 0.9);
+      box-shadow: 0 8px 18px rgba(248, 181, 90, 0.6);
+    }
+
+    .theme-toggle[data-theme="light"]:hover {
+      background: #fffbeb;
+      color: #c2410c;
+    }
+
     /* Status + error */
     .status-text {
       font-size: 0.72rem;
@@ -672,6 +713,113 @@
       border-radius: 999px;
       background: var(--accent-yellow);
       box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.6);
+    }
+
+    /* Jobs section */
+    .jobs-section {
+      margin-top: 6px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(148, 163, 184, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .jobs-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .jobs-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .jobs-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .jobs-btn {
+      align-self: flex-start;
+    }
+
+    .jobs-list {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    @media (min-width: 960px) {
+      .jobs-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .job-card {
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: radial-gradient(circle at top left, rgba(251, 146, 60, 0.12), rgba(15, 23, 42, 0.98));
+      padding: 9px 10px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .job-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .job-meta {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .job-description {
+      margin-top: 4px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .job-actions {
+      margin-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      color: var(--text-soft);
+    }
+
+    .job-apply {
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 181, 90, 0.85);
+      background: radial-gradient(circle at top, #fed7aa, #f97316);
+      color: #111827;
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+    }
+
+    .job-apply:hover {
+      transform: translateY(-0.5px);
+      filter: saturate(1.1);
+      box-shadow: 0 10px 22px rgba(248, 181, 90, 0.7);
     }
 
     .error-text {
@@ -1007,6 +1155,100 @@
       .api-bar {
         padding: 9px 10px;
       }
+
+      .logo-icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    /* Light theme overrides */
+    body[data-theme="light"] {
+      --bg: #f5f5f7;
+      --bg-elevated: #ffffff;
+      --bg-elevated-soft: #f9fafb;
+      --border-subtle: #e5e7eb;
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.15);
+      --accent-strong: #ea580c;
+      --accent-red: #ef4444;
+      --accent-yellow: #f97316;
+      --text: #0f172a;
+      --text-muted: #4b5563;
+      --text-soft: #6b7280;
+      --input-bg: #ffffff;
+      --input-border: #d1d5db;
+      --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.18);
+      --shadow-glow: 0 0 32px rgba(251, 146, 60, 0.4);
+      --body-background: radial-gradient(circle at top left, #facc15 0, #ffffff 52%);
+      --app-shell-background: linear-gradient(145deg, #ffffff 0, #f9fafb 45%, #e5e7eb 100%);
+      --panel-background: radial-gradient(circle at top left, #ffffff, #f9fafb 60%);
+      --output-background:
+        radial-gradient(circle at top left, #fef3c7, #f9fafb 60%),
+        #ffffff;
+    }
+
+    body[data-theme="light"] .app-shell {
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.18);
+      border-color: rgba(148, 163, 184, 0.4);
+    }
+
+    body[data-theme="light"] .panel {
+      border-color: rgba(148, 163, 184, 0.45);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    body[data-theme="light"] textarea {
+      background: var(--input-bg);
+      border-color: var(--input-border);
+      color: var(--text);
+    }
+
+    body[data-theme="light"] textarea:focus {
+      background: #ffffff;
+      border-color: var(--accent-strong);
+      box-shadow: 0 0 0 1px rgba(248, 181, 90, 0.7);
+    }
+
+    body[data-theme="light"] .output-box {
+      border-color: rgba(209, 213, 219, 0.9);
+      color: var(--text);
+    }
+
+    body[data-theme="light"] .chip,
+    body[data-theme="light"] .lang-switch,
+    body[data-theme="light"] .panel-pill,
+    body[data-theme="light"] .ghost-btn,
+    body[data-theme="light"] .copy-btn,
+    body[data-theme="light"] .style-btn,
+    body[data-theme="light"] .score-pill,
+    body[data-theme="light"] .history-item,
+    body[data-theme="light"] .drawer {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(209, 213, 219, 0.9);
+      color: var(--text-muted);
+    }
+
+    body[data-theme="light"] .score-pill strong {
+      color: var(--accent-strong);
+    }
+
+    body[data-theme="light"] .ghost-btn:hover:not(:disabled),
+    body[data-theme="light"] .copy-btn:hover:not(:disabled),
+    body[data-theme="light"] .style-btn:hover {
+      background: #fffbeb;
+      border-color: rgba(248, 181, 90, 0.9);
+      color: #7c2d12;
+      box-shadow: 0 10px 24px rgba(248, 181, 90, 0.45);
+    }
+
+    body[data-theme="light"] .job-card {
+      background: radial-gradient(circle at top left, rgba(251, 191, 36, 0.18), #ffffff);
+      border-color: rgba(248, 181, 90, 0.7);
+    }
+
+    body[data-theme="light"] .footer a {
+      color: var(--accent-strong);
     }
   </style>
 </head>
@@ -1016,7 +1258,22 @@
       <!-- Header -->
       <header class="header">
         <div class="title-group">
-          <div class="logo-pill" aria-hidden="true">RR</div>
+          <div class="logo-icon" aria-hidden="true">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <defs>
+                <radialGradient id="flameGrad" cx="50%" cy="80%" r="60%">
+                  <stop offset="0%" stop-color="#ffe066"/>
+                  <stop offset="40%" stop-color="#ffaa00"/>
+                  <stop offset="70%" stop-color="#ff4500"/>
+                  <stop offset="100%" stop-color="#cc2200"/>
+                </radialGradient>
+              </defs>
+              <polygon points="50,5 30,35 22,55 30,72 42,80 50,82 58,80 70,72 78,55 70,35" fill="#cc2200"/>
+              <polygon points="50,15 35,42 30,58 38,70 50,76 62,70 70,58 65,42" fill="#ff4500"/>
+              <polygon points="50,28 40,50 38,62 45,71 50,74 55,71 62,62 60,50" fill="#ffaa00"/>
+              <ellipse cx="50" cy="68" rx="12" ry="10" fill="#ffe066"/>
+            </svg>
+          </div>
           <div class="title-text">
             <h1>
               <span id="uiAppName">Resume Roaster</span>
@@ -1043,6 +1300,9 @@
             <span class="chip-flame">🔥</span>
             <span id="uiModelChip">Llama 3.3 70B (Groq) &nbsp;<span style="opacity:0.8;">|</span>&nbsp; Dark mode native</span>
           </div>
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme" title="Toggle light/dark theme">
+            🌙
+          </button>
           <button type="button" class="copy-btn" id="historyBtn" title="">
             <span>🕐</span>
             <span id="uiHistoryBtn">History</span>
@@ -1164,6 +1424,18 @@
               <span class="status-dot" id="statusDot" style="display:none;"></span>
               <span id="requestStatusText"></span>
             </div>
+
+            <div class="jobs-section" id="jobsSection" style="display:none;">
+              <div class="jobs-header">
+                <div class="jobs-title" id="jobsTitle">Matching Jobs</div>
+                <div class="jobs-subtitle" id="jobsSubtitle">Based on your resume and key skills.</div>
+              </div>
+              <button type="button" class="ghost-btn jobs-btn" id="jobsBtn">
+                <span>🔍</span>
+                <span id="jobsBtnLabel">Find Matching Jobs</span>
+              </button>
+              <div class="jobs-list" id="jobsList"></div>
+            </div>
           </div>
         </section>
       </main>
@@ -1262,6 +1534,14 @@
           pdfImportFailed: "PDF import failed. Try a text-based PDF (not scanned images).",
           // Errors
           errPasteResume: "Paste your resume before asking for emotional damage.",
+          // Jobs
+          jobsTitle: "Matching Jobs",
+          jobsSubtitle: "Based on your resume and key skills.",
+          jobsButton: "Find Matching Jobs",
+          jobsFinding: "Finding matching jobs…",
+          jobsEmpty: "No matching jobs found. Try tweaking your resume focus.",
+          jobsApply: "Apply",
+          jobsHint: "Opens a job search in a new tab.",
           // Style descriptions (shown in status line on selection)
           styleDesc: {
             brutal: "Savage comedy roast. Very harsh, but helpful.",
@@ -1344,6 +1624,14 @@
           pdfCouldntExtract: "Не удалось извлечь текст из этого PDF.",
           pdfImportFailed: "Импорт PDF не удался. Попробуй текстовый PDF (не скан).",
           errPasteResume: "Вставь резюме, прежде чем просить морального ущерба.",
+          // Jobs
+          jobsTitle: "Подходящие вакансии",
+          jobsSubtitle: "Подобраны по твоему резюме и ключевым навыкам.",
+          jobsButton: "Найти вакансии",
+          jobsFinding: "Ищем подходящие вакансии…",
+          jobsEmpty: "Пока нет совпадений. Попробуй скорректировать фокус резюме.",
+          jobsApply: "Откликнуться",
+          jobsHint: "Откроется поиск вакансий в новой вкладке.",
           styleDesc: {
             brutal: "Комедийно и жёстко. Очень сурово, но полезно.",
             balanced: "Честно, но доброжелательно. Как наставник.",
@@ -1424,6 +1712,14 @@
           pdfCouldntExtract: "No se pudo extraer texto de ese PDF.",
           pdfImportFailed: "Falló la importación. Prueba un PDF con texto (no escaneado).",
           errPasteResume: "Pega tu CV antes de pedir daño emocional.",
+          // Jobs
+          jobsTitle: "Empleos que encajan",
+          jobsSubtitle: "Basados en tu CV y habilidades clave.",
+          jobsButton: "Buscar empleos",
+          jobsFinding: "Buscando empleos que encajen…",
+          jobsEmpty: "No encontramos buenos matches. Prueba ajustando el enfoque de tu CV.",
+          jobsApply: "Postular",
+          jobsHint: "Abre una búsqueda de empleos en una nueva pestaña.",
           styleDesc: {
             brutal: "Roast cómico y duro. Muy agresivo, pero útil.",
             balanced: "Honesto y amable. Estilo mentor.",
@@ -1487,6 +1783,11 @@
       const scoreValue = document.getElementById("scoreValue");
       const scorePill = document.getElementById("scorePill");
       const langSwitch = document.getElementById("langSwitch");
+      const themeToggle = document.getElementById("themeToggle");
+      const jobsSection = document.getElementById("jobsSection");
+      const jobsBtn = document.getElementById("jobsBtn");
+      const jobsBtnLabel = document.getElementById("jobsBtnLabel");
+      const jobsList = document.getElementById("jobsList");
 
       const langButtons = Array.from(document.querySelectorAll(".lang-btn"));
       const ui = {
@@ -1518,7 +1819,9 @@
         footerRight: document.getElementById("uiFooterRight"),
         drawerTitle: document.getElementById("uiDrawerTitle"),
         close: document.getElementById("uiClose"),
-        historyEmpty: document.getElementById("uiHistoryEmpty")
+        historyEmpty: document.getElementById("uiHistoryEmpty"),
+        jobsTitle: document.getElementById("jobsTitle"),
+        jobsSubtitle: document.getElementById("jobsSubtitle")
       };
 
       const styleButtons = Array.from(document.querySelectorAll(".style-btn"));
@@ -1528,6 +1831,7 @@
       let lastScore = null;
 
       const HISTORY_KEY = "resumeRoaster:history:v1";
+      const THEME_KEY = "resumeRoaster:theme:v1";
 
       function applyLanguage(lang) {
         currentLang = lang;
@@ -1585,6 +1889,9 @@
         if (ui.drawerTitle) ui.drawerTitle.textContent = pack.historyTitle;
         if (ui.close) ui.close.textContent = pack.close;
         if (ui.historyEmpty) ui.historyEmpty.textContent = pack.historyEmpty;
+        if (ui.jobsTitle) ui.jobsTitle.textContent = pack.jobsTitle || "Matching Jobs";
+        if (ui.jobsSubtitle) ui.jobsSubtitle.textContent = pack.jobsSubtitle || "Based on your resume and key skills.";
+        if (jobsBtnLabel) jobsBtnLabel.textContent = pack.jobsButton || "Find Matching Jobs";
 
         // Keep selected style note translated
         setActiveStyle(currentStyle);
@@ -1882,6 +2189,39 @@
         }, 120);
       }
 
+      function getStoredTheme() {
+        try {
+          return window.localStorage.getItem(THEME_KEY);
+        } catch (_) {
+          return null;
+        }
+      }
+
+      function storeTheme(theme) {
+        try {
+          window.localStorage.setItem(THEME_KEY, theme);
+        } catch (_) {
+          // ignore
+        }
+      }
+
+      function applyTheme(theme) {
+        const nextTheme = theme === "light" ? "light" : "dark";
+        document.body.setAttribute("data-theme", nextTheme);
+        if (themeToggle) {
+          themeToggle.dataset.theme = nextTheme;
+          themeToggle.textContent = nextTheme === "light" ? "☀️" : "🌙";
+          themeToggle.title = nextTheme === "light" ? "Switch to dark theme" : "Switch to light theme";
+        }
+      }
+
+      function toggleTheme() {
+        const current = document.body.getAttribute("data-theme") || "dark";
+        const next = current === "dark" ? "light" : "dark";
+        applyTheme(next);
+        storeTheme(next);
+      }
+
       async function extractTextFromPdf(file) {
         if (!file) return "";
         pdfStatus.textContent = t("pdfExtractingText");
@@ -2018,6 +2358,11 @@
           downloadBtn.style.display = "inline-flex";
           downloadBtn.disabled = false;
 
+          if (jobsSection) {
+            jobsSection.style.display = "flex";
+            if (jobsList) jobsList.innerHTML = "";
+          }
+
           pushHistory({
             date: new Date().toISOString(),
             style: currentStyle,
@@ -2033,6 +2378,123 @@
         } finally {
           setLoading(false);
         }
+      }
+
+      async function findMatchingJobs() {
+        clearError();
+
+        const resumeText = resumeInput.value.trim();
+        if (!resumeText) {
+          showError(t("errPasteResume"));
+          resumeInput.focus();
+          return;
+        }
+
+        if (!jobsBtn) return;
+
+        jobsBtn.disabled = true;
+        if (jobsBtnLabel) {
+          jobsBtnLabel.textContent = t("jobsFinding") || "Finding matching jobs…";
+        }
+
+        try {
+          const response = await fetch("/api/jobs", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json"
+            },
+            body: JSON.stringify({ resumeText })
+          });
+
+          const data = await response.json();
+          if (!response.ok) {
+            const detail = (data && (data.error || data.message)) || "";
+            throw new Error(detail || "Jobs API request failed with status " + response.status + ".");
+          }
+
+          const jobs = Array.isArray(data)
+            ? data
+            : Array.isArray(data.jobs)
+              ? data.jobs
+              : [];
+
+          renderJobs(jobs);
+        } catch (err) {
+          console.error(err);
+          showError(t("jobsError") || "Job search failed. Try again.");
+        } finally {
+          jobsBtn.disabled = false;
+          if (jobsBtnLabel) {
+            jobsBtnLabel.textContent = t("jobsButton") || "Find Matching Jobs";
+          }
+        }
+      }
+
+      function renderJobs(jobs) {
+        if (!jobsList) return;
+        jobsList.innerHTML = "";
+
+        if (!Array.isArray(jobs) || !jobs.length) {
+          const empty = document.createElement("div");
+          empty.className = "panel-subtitle";
+          empty.textContent = t("jobsEmpty") || "No matching jobs found. Try tweaking your resume focus.";
+          jobsList.appendChild(empty);
+          return;
+        }
+
+        jobs.forEach((job) => {
+          const card = document.createElement("article");
+          card.className = "job-card";
+
+          const title = document.createElement("div");
+          title.className = "job-title";
+          title.textContent = job.title || "Untitled role";
+
+          const meta = document.createElement("div");
+          meta.className = "job-meta";
+          const company = document.createElement("span");
+          company.textContent = job.company || "Company confidential";
+          const location = document.createElement("span");
+          location.textContent = job.location || "Remote / Flexible";
+          meta.appendChild(company);
+          const dot = document.createElement("span");
+          dot.textContent = "•";
+          dot.style.opacity = "0.65";
+          meta.appendChild(dot);
+          meta.appendChild(location);
+
+          const desc = document.createElement("div");
+          desc.className = "job-description";
+          desc.textContent =
+            job.description ||
+            "This is a mock listing based on your resume’s title and skills.";
+
+          const actions = document.createElement("div");
+          actions.className = "job-actions";
+
+          const hint = document.createElement("span");
+          hint.textContent = t("jobsHint") || "Opens a job search in a new tab.";
+
+          const apply = document.createElement("a");
+          apply.className = "job-apply";
+          apply.href =
+            job.applyUrl ||
+            ("https://www.linkedin.com/jobs/search/?keywords=" +
+              encodeURIComponent(String(job.title || "") || "software engineer"));
+          apply.target = "_blank";
+          apply.rel = "noreferrer";
+          apply.textContent = t("jobsApply") || "Apply";
+
+          actions.appendChild(hint);
+          actions.appendChild(apply);
+
+          card.appendChild(title);
+          card.appendChild(meta);
+          card.appendChild(desc);
+          card.appendChild(actions);
+
+          jobsList.appendChild(card);
+        });
       }
 
       // Wire up events
@@ -2051,6 +2513,14 @@
       langButtons.forEach((btn) => {
         btn.addEventListener("click", () => applyLanguage(btn.dataset.lang));
       });
+
+      if (themeToggle) {
+        themeToggle.addEventListener("click", toggleTheme);
+      }
+
+      if (jobsBtn) {
+        jobsBtn.addEventListener("click", findMatchingJobs);
+      }
 
       pdfBtn.addEventListener("click", () => pdfInput.click());
       pdfInput.addEventListener("change", async (e) => {
@@ -2094,6 +2564,8 @@
       } catch (_) {
         // ignore
       }
+      const storedTheme = getStoredTheme();
+      applyTheme(storedTheme || "dark");
       applyLanguage(currentLang);
     })();
   </script>
