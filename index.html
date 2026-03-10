@@ -2248,7 +2248,7 @@
       function downloadRoastPdf() {
         const text = String(lastRoastText || "").trim();
         if (!text) return;
-        const { jsPDF } = window.jspdf;
+        const { jsPDF } = window.jspdf || window.jsPDF || {};
         const doc = new jsPDF({ unit: "pt", format: "a4" });
 
         const margin = 42;
@@ -2477,10 +2477,9 @@
 
           const apply = document.createElement("a");
           apply.className = "job-apply";
-          apply.href =
-            job.applyUrl ||
-            ("https://www.linkedin.com/jobs/search/?keywords=" +
-              encodeURIComponent(String(job.title || "") || "software engineer"));
+          apply.href = (currentLang === "ru"
+            ? "https://hh.ru/search/vacancy?text=" + encodeURIComponent(job.title || "разработчик")
+            : "https://www.indeed.com/jobs?q=" + encodeURIComponent(job.title || "developer"));
           apply.target = "_blank";
           apply.rel = "noreferrer";
           apply.textContent = t("jobsApply") || "Apply";
